@@ -1,6 +1,6 @@
 // IMPORTS
 import type { ReactNode } from 'react'
-import './App.css'
+import './App.scss'
 
 // COMPONENT
 export default function App (): ReactNode {

@@ -1,0 +1,60 @@
+// ALL
+* {
+  line-height: inherit;
+  color: inherit;
+  font: inherit;
+}
+
+// ALL
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+// MEDIA
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// TEXT
+h1, h2, h3, h4, h5, h6, p {
+  text-wrap: inherit;
+}
+
+// LINKS
+a {
+  text-decoration: inherit;
+}
+
+// LIST
+ul, ol {
+  list-style: none;
+}
+
+// FORMS
+input, button, textarea, select {
+  background: none;
+  outline: none;
+  border: none;
+}
+
+// PLACEHOLDER
+input::placeholder, textarea::placeholder {
+  color: inherit;
+  opacity: 75%;
+}
+
+// INPUT NUMBER
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: textfield;
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
