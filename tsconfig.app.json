@@ -1,4 +1,5 @@
 {
+  "include": ["src"],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
@@ -20,7 +21,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["src"]
+    "noUncheckedSideEffectImports": true,
+
+    /* PATHS */
+    "baseUrl": "./src",
+    "paths": {
+      "@lib/*": ["./lib/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@contexts/*": ["./contexts/*"],
+      "@screens/*": ["./components/screens/*"],
+      "@ui/*": ["./components/ui/*"],
+      "@workbench/*": ["./components/workbench/*"],
+      "@components/*": ["./components/*"],
+    }
+  }
 }
