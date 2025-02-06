@@ -1,0 +1,75 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.ImageInput {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: center;
+
+  position: relative;
+  height: 100%;
+  width: 100%;
+  gap: 1rem;
+
+  .text{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    .title {
+      font-weight: bold;
+    }
+    .subtitle {
+      color: $tertiary-normal;
+    }
+  }
+
+  .input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+// STATE
+.ImageInput:hover {
+  .icon {
+    color: $primary-text-strong;
+  }
+
+  .text {
+    .title {
+      color: $primary-text-strong;
+    }
+    .subtitle {
+      color: $tertiary-strong;
+    }
+  }
+}
+
+// STATE
+.ImageInput.dragging {
+  outline: dashed 2px $border-normal;
+  border-radius: $radius-normal;
+  background: repeating-linear-gradient( 45deg, $primary-normal, $primary-normal 10px, $primary-low 5px, $primary-low 25px );
+  background-color: $primary-low;
+
+  .icon {
+    color: $primary-text-strong;
+  }
+
+  .text {
+    .title {
+      color: $primary-text-strong;
+    }
+    .subtitle {
+      color: $tertiary-strong;
+    }
+  }
+}

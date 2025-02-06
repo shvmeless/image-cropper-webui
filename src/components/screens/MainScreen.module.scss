@@ -1,0 +1,21 @@
+// IMPORTS
+@import '../../styles/vars';
+
+// COMPONENT
+.MainScreen {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 2rem;
+  gap: 2rem;
+
+  .brand {
+    line-height: 1.2em;
+    font-weight: 900;
+    font-size: 3rem;
+  }
+
+  .input {
+    height: 100%;
+    width: 100%;
+  }
+}

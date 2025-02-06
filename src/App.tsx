@@ -1,10 +1,20 @@
 // IMPORTS
 import type { ReactNode } from 'react'
-import './App.scss'
+import { ImageInputContext, useImageInput } from '@contexts/common/ImageInputContext'
+import { MainScreen } from '@screens/MainScreen'
+import css from './App.module.scss'
 
 // COMPONENT
 export default function App (): ReactNode {
-  return <>
-    <h1>{'Image Cropper WebUI'}</h1>
-  </>
+
+  // STATE
+  const input = useImageInput()
+
+  return <div className={css.App}>
+    <ImageInputContext.Provider value={input}>
+
+      <MainScreen className={css.screen}/>
+
+    </ImageInputContext.Provider>
+  </div>
 }

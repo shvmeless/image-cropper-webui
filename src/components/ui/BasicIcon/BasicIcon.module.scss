@@ -1,0 +1,28 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.BasicIcon {
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke: currentColor;
+  fill: none;
+
+  &.small {
+    stroke-width: 2;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  &.medium {
+    stroke-width: 2;
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
+  &.large {
+    stroke-width: 1.75;
+    height: 3.2rem;
+    width: 3.2rem;
+  }
+}
