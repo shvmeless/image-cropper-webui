@@ -4,6 +4,7 @@ import { useClasses } from '@hooks/common/useClasses'
 import { EditorReferencesContext, useEditorReferences } from '@contexts/editor/EditorReferencesContext'
 import { EditorPreviewContext, useEditorPreview } from '@contexts/editor/EditorPreviewContext'
 import { EditorCloseTool } from './tools/EditorCloseTool'
+import { EditorDevData } from './tools/EditorDevData'
 import { EditorCanvas } from './canvas/EditorCanvas'
 import css from './EditorWorkbench.module.scss'
 
@@ -24,9 +25,10 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
     <EditorReferencesContext.Provider value={references}>
       <EditorPreviewContext.Provider value={preview}>
 
-        <EditorCanvas className={css.canvas}/>
-
+        <EditorDevData className={css.dev}/>
         <EditorCloseTool className={css.close}/>
+
+        <EditorCanvas className={css.canvas}/>
 
       </EditorPreviewContext.Provider>
     </EditorReferencesContext.Provider>

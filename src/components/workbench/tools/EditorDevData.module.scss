@@ -1,0 +1,16 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.EditorDevData {
+  display: flex;
+  flex-flow: column nowrap;
+
+  .label {
+    color: $primary-text-normal;
+  }
+
+  .value {
+    color: $primary-text-low;
+  }
+}

@@ -5,14 +5,23 @@
 .EditorWorkbench {
   position: relative;
 
+  .canvas {
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .dev {
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+    z-index: 1;
+  }
+
   .close {
     position: absolute;
     left: 2rem;
     top: 2rem;
-  }
-
-  .canvas {
-    height: 100%;
-    width: 100%;
+    z-index: 1;
   }
 }
