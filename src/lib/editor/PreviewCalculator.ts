@@ -19,5 +19,18 @@ export function PreviewCalculator (image: Dimensions, preview: Dimensions & Posi
       return preview
 
     },
+
+    // FUNCTION
+    setPosition (vector: Position): Dimensions & Position {
+
+      const previous = { ...preview }
+
+      preview.x = previous.x - vector.x
+      preview.y = previous.y - vector.y
+
+      return preview
+
+    },
+
   }
 }

@@ -9,3 +9,9 @@ export interface Position {
   x: number
   y: number
 }
+
+// TYPE
+export interface MousePosition {
+  clientX: number
+  clientY: number
+}

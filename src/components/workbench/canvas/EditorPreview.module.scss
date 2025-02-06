@@ -3,8 +3,11 @@
 
 // COMPONENT
 .EditorPreview {
+  user-select: none;
+  cursor: move;
 
   .image {
+    user-select: none;
     width: 100%;
   }
 }

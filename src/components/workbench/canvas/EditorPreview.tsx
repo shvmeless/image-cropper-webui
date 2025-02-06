@@ -1,5 +1,5 @@
 // IMPORTS
-import { useContext, useEffect, type ReactNode } from 'react'
+import { type MouseEvent, useContext, useEffect, type ReactNode } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
@@ -7,6 +7,7 @@ import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContex
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { ImageInputContext } from '@contexts/common/ImageInputContext'
 import css from './EditorPreview.module.scss'
+import { useDragging } from '@hooks/useDragging'
 
 // PROPS
 interface EditorPreviewProps {
@@ -23,6 +24,9 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
 
   // RENDER
   if (input.image === null) return null
+
+  // STATE
+  const dragging = useDragging()
 
   // EFFECT
   useEffect(() => {
@@ -55,13 +59,34 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
 
   }, [input.image])
 
+  // HANDLER
+  const mouseDownHandler = (event: MouseEvent<HTMLDivElement>): void => {
+    if (!event.altKey) return
+    dragging.update((target, previous) => {
+
+      if (input.image === null) return
+      if (preview.values.current === null) return
+
+      const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
+      const result = calculator.setPosition({
+        x: target.clientX - (previous ?? event).clientX,
+        y: target.clientY - (previous ?? event).clientY,
+      })
+
+      preview.setValues(result)
+
+    })
+  }
+
   // RENDER
   return <div className={useClasses(css.EditorPreview, props.className)}
     ref={references.preview}
+    onMouseDown={mouseDownHandler}
   >
     <img className={css.image}
       alt={input.image.name}
       src={URL.createObjectURL(input.image.blob)}
+      draggable={false}
     />
   </div>
 
