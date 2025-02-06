@@ -3,10 +3,15 @@
 
 // COMPONENT
 .EditorCanvas {
+  display: inline-block;
   position: relative;
+  user-select: none;
+  overflow: hidden;
 
   .preview {
     position: absolute;
+    left: 0;
+    top: 0;
     border-radius: $radius-normal;
     overflow: hidden;
   }

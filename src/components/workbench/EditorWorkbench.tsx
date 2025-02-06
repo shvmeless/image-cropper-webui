@@ -1,6 +1,8 @@
 // IMPORTS
 import type { ReactNode } from 'react'
 import { useClasses } from '@hooks/common/useClasses'
+import { EditorReferencesContext, useEditorReferences } from '@contexts/editor/EditorReferencesContext'
+import { EditorPreviewContext, useEditorPreview } from '@contexts/editor/EditorPreviewContext'
 import { EditorCanvas } from './canvas/EditorCanvas'
 import css from './EditorWorkbench.module.scss'
 
@@ -12,9 +14,17 @@ interface EditorWorkbenchProps {
 // COMPONENT
 export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
 
+  // STATE
+  const references = useEditorReferences()
+  const preview = useEditorPreview()
+
   // RENDER
   return <div className={useClasses(css.EditorWorkbench, props.className)}>
-    <EditorCanvas className={css.canvas}/>
+    <EditorReferencesContext.Provider value={references}>
+      <EditorPreviewContext.Provider value={preview}>
+        <EditorCanvas className={css.canvas}/>
+      </EditorPreviewContext.Provider>
+    </EditorReferencesContext.Provider>
   </div>
 
 }
