@@ -1,0 +1,13 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.EditorCanvas {
+  position: relative;
+
+  .preview {
+    position: absolute;
+    border-radius: $radius-normal;
+    overflow: hidden;
+  }
+}
