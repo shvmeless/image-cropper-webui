@@ -1,0 +1,28 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.EditorCloseTool {
+  display: grid;
+  place-items: center;
+
+  height: 3rem;
+  width: 3rem;
+
+  border-radius: $radius-low;
+  background-color: $primary-normal;
+  border: solid 1px $border-normal;
+
+  &:hover {
+    background-color: $primary-strong;
+    border-color: $border-strong;
+    color: $primary-text-strong;
+  }
+
+  &:focus {
+    background-color: $primary-strong;
+    border-color: $border-strong;
+    color: $primary-text-strong;
+    border-width: 2px;
+  }
+}
