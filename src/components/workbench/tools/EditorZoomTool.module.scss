@@ -1,0 +1,43 @@
+// IMPORTS
+@import "../../../styles/vars";
+
+// COMPONENT
+.EditorZoomTool {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1rem;
+
+  .button {
+    display: grid;
+    place-items: center;
+    height: 3rem;
+    width: 3rem;
+
+    background-color: $primary-normal;
+    border: solid 1px $border-normal;
+    color: $primary-text-normal;
+    border-radius: $radius-low;
+
+    &:hover {
+      background-color: $primary-strong;
+      border: solid 1px $border-strong;
+      color: $primary-text-strong;
+    }
+
+    &:focus {
+      background-color: $primary-strong;
+      border: solid 2px $border-strong;
+      color: $primary-text-strong;
+    }
+  }
+
+  .value {
+    display: grid;
+    place-items: center;
+    flex-grow: 1;
+
+    background-color: $primary-normal;
+    border: solid 1px $border-normal;
+    border-radius: $radius-low;
+  }
+}

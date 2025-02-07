@@ -24,4 +24,12 @@
     top: 2rem;
     z-index: 1;
   }
+
+  .zoom {
+    position: absolute;
+    width: 25rem;
+    bottom: 2rem;
+    left: calc(50% - 12.5rem);
+    z-index: 1;
+  }
 }

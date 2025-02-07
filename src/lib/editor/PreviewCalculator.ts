@@ -32,5 +32,22 @@ export function PreviewCalculator (image: Dimensions, preview: Dimensions & Posi
 
     },
 
+    // FUNCTION
+    zoom (percent: number): Dimensions & Position {
+
+      const previous = { ...preview }
+
+      const multiplier = (previous.width / image.width) + percent
+
+      preview.width = image.width * multiplier
+      preview.height = image.height * preview.width / image.width
+
+      preview.x = previous.x - ((previous.width - preview.width) / 2)
+      preview.y = previous.y - ((previous.height - preview.height) / 2)
+
+      return preview
+
+    },
+
   }
 }
