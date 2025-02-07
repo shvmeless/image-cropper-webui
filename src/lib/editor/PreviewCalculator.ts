@@ -49,5 +49,27 @@ export function PreviewCalculator (image: Dimensions, preview: Dimensions & Posi
 
     },
 
+    // FUNCTION
+    zoomAt (target: Position, percent: number): Dimensions & Position {
+
+      const previous = { ...preview }
+
+      const multiplier = (previous.width / image.width) + percent
+
+      preview.width = image.width * multiplier
+      preview.height = image.height * preview.width / image.width
+
+      const pos2 = {
+        x: target.x * preview.width / previous.width,
+        y: target.y * preview.height / previous.height,
+      }
+
+      preview.x = previous.x - (target.x - pos2.x)
+      preview.y = previous.y - (target.y - pos2.y)
+
+      return preview
+
+    },
+
   }
 }

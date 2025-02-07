@@ -1,5 +1,5 @@
 // IMPORTS
-import { type MouseEvent, useContext, useEffect, type ReactNode } from 'react'
+import { type MouseEvent, useContext, useEffect, type ReactNode, type WheelEvent } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
@@ -78,10 +78,32 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
     })
   }
 
+  // HANDLER
+  const onEditorWheel = (event: WheelEvent<HTMLDivElement>): void => {
+
+    if (event.deltaY === 0) return
+    if (!event.altKey) return
+
+    if (input.image === null) return
+    if (references.preview.current === null) return
+    if (preview.values.current === null) return
+
+    const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
+    const previewRect = references.preview.current.getBoundingClientRect()
+    const result = calculator.zoomAt({
+      x: event.clientX - previewRect.left,
+      y: event.clientY - previewRect.top,
+    }, (event.deltaY < 0) ? 0.1 : -0.1)
+
+    preview.setValues(result)
+
+  }
+
   // RENDER
   return <div className={useClasses(css.EditorPreview, props.className)}
     ref={references.preview}
     onMouseDown={mouseDownHandler}
+    onWheel={onEditorWheel}
   >
     <img className={css.image}
       alt={input.image.name}
