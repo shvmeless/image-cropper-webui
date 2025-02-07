@@ -5,12 +5,6 @@
 .EditorWorkbench {
   position: relative;
 
-  .canvas {
-    height: 100%;
-    width: 100%;
-    z-index: 0;
-  }
-
   .dev {
     position: absolute;
     left: 2rem;
@@ -25,12 +19,26 @@
     z-index: 1;
   }
 
-  .position {
+  .cropper {
     position: absolute;
-    width: 25rem;
+    left: 2rem;
     top: 2rem;
-    left: calc(50% - 12.5rem);
+
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 1rem;
+
+    pointer-events: none;
+    width: calc(100% - 4rem);
     z-index: 1;
+
+    .tool {
+      pointer-events: all;
+      width: 20rem;
+    }
   }
 
   .zoom {
@@ -39,5 +47,11 @@
     bottom: 2rem;
     left: calc(50% - 12.5rem);
     z-index: 1;
+  }
+
+  .canvas {
+    height: 100%;
+    width: 100%;
+    z-index: 0;
   }
 }
