@@ -63,6 +63,38 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
   }, [input.image])
 
   // HANDLER
+  const cropperClickHandler = (start: MouseEvent<HTMLDivElement>): void => {
+    if (start.button !== 0) return
+    if (start.shiftKey || start.ctrlKey || start.metaKey || start.altKey) return
+    start.stopPropagation()
+
+    if (references.cropper.current === null) return
+
+    const cropperRect = references.cropper.current.getBoundingClientRect()
+
+    const diffX = start.clientX - cropperRect.left
+    const diffY = start.clientY - cropperRect.top
+
+    dragging.update((target) => {
+
+      if (input.image === null) return
+      if (cropper.values.current === null) return
+      if (references.preview.current === null) return
+
+      const previewRect = references.preview.current.getBoundingClientRect()
+      const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
+
+      const result = calculator.setPosition({
+        x: (target.clientX - previewRect.left - diffX) * input.image.dimensions.width / previewRect.width,
+        y: (target.clientY - previewRect.top - diffY) * input.image.dimensions.height / previewRect.height,
+      })
+
+      cropper.setValues(result)
+
+    })
+  }
+
+  // HANDLER
   const cropperSideClickHandler = (event: MouseEvent<HTMLDivElement>, side: 'top' | 'right' | 'bottom' | 'left'): void => {
     if (event.button !== 0) return
     if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return
@@ -92,6 +124,7 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
   // RENDER
   return <div className={useClasses(css.EditorCropper, props.className)}
     ref={references.cropper}
+    onMouseDown={cropperClickHandler}
   >
 
     <div className={css.top} onMouseDown={(event): void => { cropperSideClickHandler(event, 'top') }}/>

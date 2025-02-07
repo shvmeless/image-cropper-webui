@@ -21,6 +21,44 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
     },
 
     // FUNCTION
+    setX (x: number): Dimensions & Position {
+
+      const previous = { ...cropper }
+
+      cropper.x = x
+
+      if (cropper.x < 0) cropper.x = 0
+      if (cropper.x > (image.width - previous.width)) cropper.x = image.width - previous.width
+
+      return cropper
+
+    },
+
+    // FUNCTION
+    setY (y: number): Dimensions & Position {
+
+      const previous = { ...cropper }
+
+      cropper.y = y
+
+      if (cropper.y < 0) cropper.y = 0
+      if ((cropper.y + previous.height) > image.height) cropper.y = image.height - previous.height
+
+      return cropper
+
+    },
+
+    // FUNCTION
+    setPosition (position: Position): Dimensions & Position {
+
+      cropper = this.setX(position.x)
+      cropper = this.setY(position.y)
+
+      return cropper
+
+    },
+
+    // FUNCTION
     moveTopSide (y: number): Dimensions & Position {
 
       const previous = { ...cropper }
