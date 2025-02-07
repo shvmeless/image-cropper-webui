@@ -8,6 +8,7 @@
   cursor: move;
 
   .image {
+    border-radius: $radius-low;
     filter: brightness(50%);
     user-select: none;
     width: 100%;
