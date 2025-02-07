@@ -25,6 +25,14 @@
     z-index: 1;
   }
 
+  .position {
+    position: absolute;
+    width: 25rem;
+    top: 2rem;
+    left: calc(50% - 12.5rem);
+    z-index: 1;
+  }
+
   .zoom {
     position: absolute;
     width: 25rem;

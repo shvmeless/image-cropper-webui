@@ -1,0 +1,40 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.EditorCropperDimensionsTool {
+  display: flex;
+  flex-flow: row nowrap;
+
+  background-color: $primary-normal;
+  outline: solid 1px $border-normal;
+  border-radius: $radius-low;
+  outline-offset: -1px;
+
+  > :not(:first-child) {
+    border-left: 1px solid $border-normal;
+  }
+
+  .label {
+    display: grid;
+    place-items: center;
+    height: 3rem;
+    min-height: 3rem;
+    width: 3rem;
+    min-width: 3rem;
+  }
+
+  .input {
+    height: 3rem;
+    text-align: right;
+    padding: 0 1rem;
+    flex-grow: 1;
+    width: 0;
+
+    &:focus {
+      background-color: $primary-strong;
+      outline: solid 2px $border-strong;
+      outline-offset: -1px;
+    }
+  }
+}

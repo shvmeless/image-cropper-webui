@@ -4,6 +4,7 @@ import { useClasses } from '@hooks/common/useClasses'
 import { EditorReferencesContext, useEditorReferences } from '@contexts/editor/EditorReferencesContext'
 import { EditorCropperContext, useEditorCropper } from '@contexts/editor/EditorCropperContext'
 import { EditorPreviewContext, useEditorPreview } from '@contexts/editor/EditorPreviewContext'
+import { EditorCropperDimensionsTool } from './tools/EditorCropperDimensionsTool'
 import { EditorCloseTool } from './tools/EditorCloseTool'
 import { EditorZoomTool } from './tools/EditorZoomTool'
 import { EditorDevData } from './tools/EditorDevData'
@@ -31,6 +32,7 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
 
           <EditorDevData className={css.dev}/>
           <EditorCloseTool className={css.close}/>
+          <EditorCropperDimensionsTool className={css.position}/>
           <EditorZoomTool className={css.zoom}/>
 
           <EditorCanvas className={css.canvas}/>
