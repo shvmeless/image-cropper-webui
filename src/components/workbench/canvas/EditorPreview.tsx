@@ -3,11 +3,12 @@ import { type MouseEvent, useContext, useEffect, type ReactNode, type WheelEvent
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
+import { useDragging } from '@hooks/useDragging'
 import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContext'
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { ImageInputContext } from '@contexts/common/ImageInputContext'
+import { EditorCropper } from './EditorCropper'
 import css from './EditorPreview.module.scss'
-import { useDragging } from '@hooks/useDragging'
 
 // PROPS
 interface EditorPreviewProps {
@@ -105,11 +106,15 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
     onMouseDown={mouseDownHandler}
     onWheel={onEditorWheel}
   >
+
     <img className={css.image}
       alt={input.image.name}
       src={URL.createObjectURL(input.image.blob)}
       draggable={false}
     />
+
+    <EditorCropper className={css.cropper}/>
+
   </div>
 
 }

@@ -1,0 +1,10 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.EditorCropper {
+  backdrop-filter: brightness(200%);
+  outline: solid 1px $border-normal;
+  border-radius: $radius-low;
+  outline-offset: -1px;
+}
