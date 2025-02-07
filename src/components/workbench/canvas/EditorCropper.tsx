@@ -121,6 +121,33 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
     })
   }
 
+  // HANDLER
+  const cropperCornerClickHandler = (event: MouseEvent<HTMLDivElement>, corner: 'top_left' | 'top_right' | 'bottom_right' | 'bottom_left'): void => {
+    if (event.button !== 0) return
+    if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return
+    event.stopPropagation()
+    dragging.update((target) => {
+
+      if (input.image === null) return
+      if (cropper.values.current === null) return
+      if (references.preview.current === null) return
+
+      const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
+      const converter = EditorClientConverter(input.image.dimensions, references.preview.current)
+
+      let result = { ...cropper.values.current }
+      const position = converter.relativeToImage(target)
+
+      if (corner === 'top_left') result = calculator.moveTopLeftCorner(position)
+      else if (corner === 'top_right') result = calculator.moveTopRightCorner(position)
+      else if (corner === 'bottom_right') result = calculator.moveBottomRightCorner(position)
+      else result = calculator.moveBottomLeftCorner(position)
+
+      cropper.setValues(result)
+
+    })
+  }
+
   // RENDER
   return <div className={useClasses(css.EditorCropper, props.className)}
     ref={references.cropper}
@@ -131,6 +158,11 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
     <div className={css.right} onMouseDown={(event): void => { cropperSideClickHandler(event, 'right') }}/>
     <div className={css.bottom} onMouseDown={(event): void => { cropperSideClickHandler(event, 'bottom') }}/>
     <div className={css.left} onMouseDown={(event): void => { cropperSideClickHandler(event, 'left') }}/>
+
+    <div className={css.topleft} onMouseDown={(event): void => { cropperCornerClickHandler(event, 'top_left') }}/>
+    <div className={css.topright} onMouseDown={(event): void => { cropperCornerClickHandler(event, 'top_right') }}/>
+    <div className={css.bottomright} onMouseDown={(event): void => { cropperCornerClickHandler(event, 'bottom_right') }}/>
+    <div className={css.bottomleft} onMouseDown={(event): void => { cropperCornerClickHandler(event, 'bottom_left') }}/>
 
   </div>
 

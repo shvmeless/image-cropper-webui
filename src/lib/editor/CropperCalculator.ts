@@ -156,5 +156,82 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
     },
 
+    // FUNCTION
+    moveTopRightCorner (position: Position): Dimensions & Position {
+
+      const previous = { ...cropper }
+
+      if (position.y < 0) position.y = 0
+      if (position.y > (previous.y + previous.height - 20)) position.y = previous.y + previous.height - 20
+
+      if (position.x < (previous.x + 20)) position.x = previous.x + 20
+      if (position.x > (image.width)) position.x = image.width
+
+      cropper.y = position.y
+      cropper.height = previous.y + previous.height - position.y
+
+      cropper.width = position.x - previous.x
+
+      return cropper
+
+    },
+
+    // FUNCTION
+    moveBottomRightCorner (position: Position): Dimensions & Position {
+
+      const previous = { ...cropper }
+
+      if (position.y < (previous.y + 20)) position.y = previous.y + 20
+      if (position.y > image.height) position.y = image.height
+
+      if (position.x < (previous.x + 20)) position.x = previous.x + 20
+      if (position.x > (image.width)) position.x = image.width
+
+      cropper.height = position.y - previous.y
+      cropper.width = position.x - previous.x
+
+      return cropper
+
+    },
+
+    // FUNCTION
+    moveBottomLeftCorner (position: Position): Dimensions & Position {
+
+      const previous = { ...cropper }
+
+      if (position.y < (previous.y + 20)) position.y = previous.y + 20
+      if (position.y > image.height) position.y = image.height
+
+      if (position.x < 0) position.x = 0
+      if (position.x > (previous.x + previous.width - 20)) position.x = previous.x + previous.width - 20
+
+      cropper.height = position.y - previous.y
+      cropper.x = position.x
+      cropper.width = previous.width - (position.x - previous.x)
+
+      return cropper
+
+    },
+
+    // FUNCTION
+    moveTopLeftCorner (position: Position): Dimensions & Position {
+
+      const previous = { ...cropper }
+
+      if (position.y < 0) position.y = 0
+      if (position.y > (previous.y + previous.height - 20)) position.y = previous.y + previous.height - 20
+
+      if (position.x < 0) position.x = 0
+      if (position.x > (previous.x + previous.width - 20)) position.x = previous.x + previous.width - 20
+
+      cropper.y = position.y
+      cropper.height = previous.y + previous.height - position.y
+      cropper.x = position.x
+      cropper.width = previous.width - (position.x - previous.x)
+
+      return cropper
+
+    },
+
   }
 }
