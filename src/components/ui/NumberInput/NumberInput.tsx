@@ -8,8 +8,9 @@ interface NumberInputProps {
   value: number
   onValueChange: (value: number) => void
   onComponentBlur?: (value: number) => void
-  placeholder?: string
   className?: string
+  placeholder?: string
+  disabled?: boolean
 }
 
 // COMPONENT
@@ -30,6 +31,7 @@ export function NumberInput (props: NumberInputProps): ReactNode {
     className={useClasses(css.NumberInput, props.className)}
     placeholder={props.placeholder}
     value={props.value}
+    disabled={props.disabled}
     onChange={onChangeHandler}
     onBlur={onBlurHandler}
   />

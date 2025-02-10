@@ -14,13 +14,18 @@
   width: 100%;
   gap: 1rem;
 
+  .icon {
+    stroke-width: 1pt;
+    color: $primary-text-normal;
+  }
+
   .text{
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
 
     .title {
-      font-weight: bold;
+      color: $primary-text-normal;
     }
     .subtitle {
       color: $tertiary-normal;
@@ -55,9 +60,7 @@
 
 // STATE
 .ImageInput.dragging {
-  outline: dashed 2px $border-normal;
-  border-radius: $radius-normal;
-  background: repeating-linear-gradient( 45deg, $primary-normal, $primary-normal 10px, $primary-low 5px, $primary-low 25px );
+  background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 2%), rgba(255, 255, 255, 2%) 10px, rgba(0, 0, 0, 0%) 5px, rgba(0, 0, 0, 0%) 25px);
   background-color: $primary-low;
 
   .icon {

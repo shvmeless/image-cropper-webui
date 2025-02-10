@@ -20,22 +20,19 @@ export function EditorCropperPositionTool (props: EditorCropperPositionToolProps
   const input = useContext(ImageInputContext)
   const cropper = useContext(EditorCropperContext)
 
-  // RENDER
-  if (input.image === null) return null
-
   // STATE
   const [values, setValues] = useState({
     x: 0,
     y: 0,
   })
 
-  // FUNCTION
-  const updateValues = (values: Partial<Position>): void => {
-    setValues((prev) => ({ ...prev, ...values }))
-  }
-
   // EFFECT
   useEffect(() => {
+
+    if (input.image === null) {
+      setValues({ x: 0, y: 0 })
+      return
+    }
 
     const callback = (values: Position): void => {
       const { x, y } = values
@@ -48,6 +45,11 @@ export function EditorCropperPositionTool (props: EditorCropperPositionToolProps
     }
 
   }, [input.image])
+
+  // FUNCTION
+  const updateValues = (values: Partial<Position>): void => {
+    setValues((prev) => ({ ...prev, ...values }))
+  }
 
   // FUNCTION
   const inputChangeHandler = (property: string, value: number): void => {
@@ -72,7 +74,9 @@ export function EditorCropperPositionTool (props: EditorCropperPositionToolProps
   }
 
   // RENDER
-  return <div className={useClasses(css.EditorCropperPositionTool, props.className)}>
+  return <div
+    className={useClasses(css.EditorCropperPositionTool, props.className, (input.image === null) && css.disabled)}
+  >
 
     <div className={css.item}>
       <div className={css.label}><span>{'X'}</span></div>
@@ -82,6 +86,7 @@ export function EditorCropperPositionTool (props: EditorCropperPositionToolProps
         value={values.x}
         onValueChange={(x) => { updateValues({ x }) }}
         onComponentBlur={(x) => { inputChangeHandler('x', x) }}
+        disabled={input.image === null}
       />
     </div>
 
@@ -93,6 +98,7 @@ export function EditorCropperPositionTool (props: EditorCropperPositionToolProps
         value={values.y}
         onValueChange={(y) => { updateValues({ y }) }}
         onComponentBlur={(y) => { inputChangeHandler('y', y) }}
+        disabled={input.image === null}
       />
     </div>
 

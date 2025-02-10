@@ -20,22 +20,19 @@ export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolP
   const input = useContext(ImageInputContext)
   const cropper = useContext(EditorCropperContext)
 
-  // RENDER
-  if (input.image === null) return null
-
   // STATE
   const [values, setValues] = useState({
     width: 0,
     height: 0,
   })
 
-  // FUNCTION
-  const updateValues = (values: Partial<Dimensions>): void => {
-    setValues((prev) => ({ ...prev, ...values }))
-  }
-
   // EFFECT
   useEffect(() => {
+
+    if (input.image === null) {
+      setValues({ width: 0, height: 0 })
+      return
+    }
 
     const callback = (values: Dimensions): void => {
       const { width, height } = values
@@ -48,6 +45,11 @@ export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolP
     }
 
   }, [input.image])
+
+  // FUNCTION
+  const updateValues = (values: Partial<Dimensions>): void => {
+    setValues((prev) => ({ ...prev, ...values }))
+  }
 
   // FUNCTION
   const inputChangeHandler = (property: string, value: number): void => {
@@ -72,7 +74,9 @@ export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolP
   }
 
   // RENDER
-  return <div className={useClasses(css.EditorCropperDimensionsTool, props.className)}>
+  return <div
+    className={useClasses(css.EditorCropperDimensionsTool, props.className, (input.image === null) && css.disabled)}
+  >
 
     <div className={css.item}>
       <div className={css.label}><span>{'W'}</span></div>
@@ -82,6 +86,7 @@ export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolP
         value={values.width}
         onValueChange={(width) => { updateValues({ width }) }}
         onComponentBlur={(width) => { inputChangeHandler('width', width) }}
+        disabled={input.image === null}
       />
     </div>
 
@@ -93,6 +98,7 @@ export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolP
         value={values.height}
         onValueChange={(height) => { updateValues({ height }) }}
         onComponentBlur={(height) => { inputChangeHandler('height', height) }}
+        disabled={input.image === null}
       />
     </div>
 

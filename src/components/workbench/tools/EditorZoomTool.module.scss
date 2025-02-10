@@ -12,11 +12,23 @@
     place-items: center;
     height: 3rem;
     width: 3rem;
+    border-radius: $radius-low;
+  }
 
+  .value {
+    display: grid;
+    place-items: center;
+    flex-grow: 1;
+    border-radius: $radius-low;
+  }
+}
+
+// STATE
+.EditorZoomTool:not(.disabled) {
+  .button {
     background-color: $primary-normal;
     border: solid 1px $border-normal;
     color: $primary-text-normal;
-    border-radius: $radius-low;
 
     &:hover {
       background-color: $primary-strong;
@@ -32,12 +44,23 @@
   }
 
   .value {
-    display: grid;
-    place-items: center;
-    flex-grow: 1;
-
     background-color: $primary-normal;
     border: solid 1px $border-normal;
-    border-radius: $radius-low;
+    color: $primary-text-normal;
+  }
+}
+
+// STATE
+.EditorZoomTool.disabled {
+  .button {
+    background-color: $primary-low;
+    border: solid 1px $border-low;
+    color: $primary-text-low;
+  }
+
+  .value {
+    background-color: $primary-low;
+    border: solid 1px $border-low;
+    color: $primary-text-low;
   }
 }

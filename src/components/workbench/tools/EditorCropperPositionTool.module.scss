@@ -19,11 +19,7 @@
       min-height: 3rem;
       width: 3rem;
       min-width: 3rem;
-
       border-radius: $radius-low 0 0 $radius-low;
-      background-color: $primary-normal;
-      border: solid 1px $border-normal;
-      border-right: none;
     }
 
     .input {
@@ -32,15 +28,48 @@
       padding: 0 1rem;
       flex-grow: 1;
       width: 0;
-
       border-radius: 0 $radius-low $radius-low 0;
+    }
+  }
+}
+
+// STATE
+.EditorCropperPositionTool.disabled {
+  .item {
+    .label {
+      background-color: $primary-low;
+      border: solid 1px $border-low;
+      color: $primary-text-low;
+      border-right: none;
+    }
+
+    .input {
+      background-color: $primary-low;
+      border: solid 1px $border-low;
+      color: $primary-text-low;
+    }
+  }
+}
+
+// STATE
+.EditorCropperPositionTool:not(.disabled) {
+  .item {
+    .label {
       background-color: $primary-normal;
       border: solid 1px $border-normal;
+      color: $primary-text-normal;
+      border-right: none;
+    }
+
+    .input {
+      background-color: $primary-normal;
+      border: solid 1px $border-normal;
+      color: $primary-text-normal;
 
       &:focus {
         background-color: $primary-strong;
-        outline: solid 2px $border-strong;
-        outline-offset: -2px;
+        border: solid 1px $border-strong;
+        color: $primary-text-strong;
       }
     }
   }

@@ -20,14 +20,16 @@ export function EditorZoomTool (props: EditorZoomToolProps): ReactNode {
   const input = useContext(ImageInputContext)
   const preview = useContext(EditorPreviewContext)
 
-  // RENDER
-  if (input.image === null) return null
-
   // STATE
   const [value, setValue] = useState(100)
 
   // EFFECT
   useEffect(() => {
+
+    if (input.image === null) {
+      setValue(100)
+      return
+    }
 
     const callback = (values: Dimensions): void => {
       if (input.image === null) return
@@ -56,9 +58,15 @@ export function EditorZoomTool (props: EditorZoomToolProps): ReactNode {
   }
 
   // RENDER
-  return <div className={useClasses(css.EditorZoomTool, props.className)}>
+  return <div
+    className={useClasses(css.EditorZoomTool, props.className, (input.image === null) && css.disabled)}
+  >
 
-    <button className={css.button} type='button' onClick={(): void => { changeZoom('OUT') }}>
+    <button className={css.button}
+      type='button'
+      onClick={(): void => { changeZoom('OUT') }}
+      disabled={input.image === null}
+    >
       <BasicIcon icon='minus'/>
     </button>
 
@@ -66,7 +74,11 @@ export function EditorZoomTool (props: EditorZoomToolProps): ReactNode {
       <span>{Math.round(value)}{'%'}</span>
     </div>
 
-    <button className={css.button} type='button' onClick={(): void => { changeZoom('IN') }}>
+    <button className={css.button}
+      type='button'
+      onClick={(): void => { changeZoom('IN') }}
+      disabled={input.image === null}
+    >
       <BasicIcon icon='plus'/>
     </button>
 
