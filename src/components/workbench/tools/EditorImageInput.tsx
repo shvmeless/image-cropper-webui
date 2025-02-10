@@ -2,16 +2,16 @@
 import { type ChangeEvent, type ReactNode, useRef } from 'react'
 import { useClasses } from '@hooks/common/useClasses'
 import { BasicIcon } from '@ui/BasicIcon/BasicIcon'
-import css from './ImageInput.module.scss'
+import css from './EditorImageInput.module.scss'
 
 // PROPS
-interface ImageInputProps {
+interface EditorImageInputProps {
   onChange?: (file: File) => void
   className?: string
 }
 
 // COMPONENT
-export function ImageInput (props: ImageInputProps): ReactNode {
+export function EditorImageInput (props: EditorImageInputProps): ReactNode {
 
   // REFERENCES
   const element = useRef<HTMLDivElement>(null)
@@ -41,7 +41,7 @@ export function ImageInput (props: ImageInputProps): ReactNode {
 
   // RENDER
   return <div ref={element}
-    className={useClasses(css.ImageInput, props.className)}
+    className={useClasses(css.EditorImageInput, props.className)}
     onDragOver={draggingHandler}
     onDragLeave={stopDraggingHandler}
     onDrop={stopDraggingHandler}

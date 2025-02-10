@@ -3,14 +3,14 @@ import { useState, createContext } from 'react'
 import { type InputImage, ImageReader } from '@lib/common/ImageReader'
 
 // INTERFACE
-export interface ImageInputHook {
+export interface EditorImageInputHook {
   image: InputImage | null
   read: (file: File) => Promise<InputImage | null>
   discard: () => void
 }
 
 // HOOK
-export function useImageInput (): ImageInputHook {
+export function useEditorImageInput (): EditorImageInputHook {
 
   // STATE
   const [image, setImage] = useState<InputImage | null>(null)
@@ -39,7 +39,7 @@ export function useImageInput (): ImageInputHook {
 }
 
 // CONTEXT
-export const ImageInputContext = createContext<ImageInputHook>({
+export const EditorImageInputContext = createContext<EditorImageInputHook>({
   image: null,
   read: async () => (null),
   discard: () => {},

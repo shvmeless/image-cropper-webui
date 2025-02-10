@@ -4,20 +4,20 @@ import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
-import { ImageInputContext } from '@contexts/common/ImageInputContext'
+import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { BasicIcon } from '@ui/BasicIcon/BasicIcon'
-import css from './EditorZoomTool.module.scss'
+import css from './EditorZoomOptions.module.scss'
 
 // PROPS
-interface EditorZoomToolProps {
+interface EditorZoomOptionsProps {
   className?: string
 }
 
 // COMPONENT
-export function EditorZoomTool (props: EditorZoomToolProps): ReactNode {
+export function EditorZoomOptions (props: EditorZoomOptionsProps): ReactNode {
 
   // CONTEXT
-  const input = useContext(ImageInputContext)
+  const input = useContext(EditorImageInputContext)
   const preview = useContext(EditorPreviewContext)
 
   // STATE
@@ -59,7 +59,7 @@ export function EditorZoomTool (props: EditorZoomToolProps): ReactNode {
 
   // RENDER
   return <div
-    className={useClasses(css.EditorZoomTool, props.className, (input.image === null) && css.disabled)}
+    className={useClasses(css.EditorZoomOptions, props.className, (input.image === null) && css.disabled)}
   >
 
     <button className={css.button}

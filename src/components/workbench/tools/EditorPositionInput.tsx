@@ -4,20 +4,20 @@ import { CropperCalculator } from '@lib/editor/CropperCalculator'
 import type { Position } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { ImageInputContext } from '@contexts/common/ImageInputContext'
+import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { NumberInput } from '@ui/NumberInput/NumberInput'
-import css from './EditorCropperPositionTool.module.scss'
+import css from './EditorPositionInput.module.scss'
 
 // PROPS
-interface EditorCropperPositionToolProps {
+interface EditorPositionInputProps {
   className?: string
 }
 
 // COMPONENT
-export function EditorCropperPositionTool (props: EditorCropperPositionToolProps): ReactNode {
+export function EditorPositionInput (props: EditorPositionInputProps): ReactNode {
 
   // CONTEXT
-  const input = useContext(ImageInputContext)
+  const input = useContext(EditorImageInputContext)
   const cropper = useContext(EditorCropperContext)
 
   // STATE
@@ -75,7 +75,7 @@ export function EditorCropperPositionTool (props: EditorCropperPositionToolProps
 
   // RENDER
   return <div
-    className={useClasses(css.EditorCropperPositionTool, props.className, (input.image === null) && css.disabled)}
+    className={useClasses(css.EditorPositionInput, props.className, (input.image === null) && css.disabled)}
   >
 
     <div className={css.item}>

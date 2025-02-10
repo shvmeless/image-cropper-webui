@@ -1,16 +1,16 @@
 // IMPORTS
-import { useContext, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useClasses } from '@hooks/common/useClasses'
 import { EditorReferencesContext, useEditorReferences } from '@contexts/editor/EditorReferencesContext'
 import { EditorCropperContext, useEditorCropper } from '@contexts/editor/EditorCropperContext'
 import { EditorPreviewContext, useEditorPreview } from '@contexts/editor/EditorPreviewContext'
-import { ImageInputContext } from '@contexts/common/ImageInputContext'
-import { ImageInput } from '@ui/ImageInput/ImageInput'
-import { EditorCropperDimensionsTool } from './tools/EditorCropperDimensionsTool'
-import { EditorCropperPositionTool } from './tools/EditorCropperPositionTool'
-import { EditorDownloadTool } from './tools/EditorDownloadTool'
-import { EditorCloseTool } from './tools/EditorCloseTool'
-import { EditorZoomTool } from './tools/EditorZoomTool'
+import { EditorImageInputContext, useEditorImageInput } from '@contexts/editor/EditorImageInputContext'
+import { EditorImageInput } from '@workbench/tools/EditorImageInput'
+import { EditorDimensionsInput } from './tools/EditorDimensionsInput'
+import { EditorPositionInput } from './tools/EditorPositionInput'
+import { EditorDownloadButton } from './tools/EditorDownloadButton'
+import { EditorCloseButton } from './tools/EditorCloseButton'
+import { EditorZoomOptions } from './tools/EditorZoomOptions'
 import { EditorCanvas } from './canvas/EditorCanvas'
 import css from './EditorWorkbench.module.scss'
 
@@ -23,7 +23,7 @@ interface EditorWorkbenchProps {
 export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
 
   // CONTEXT
-  const input = useContext(ImageInputContext)
+  const input = useEditorImageInput()
 
   // STATE
   const references = useEditorReferences()
@@ -37,27 +37,29 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
 
   // RENDER
   return <div className={useClasses(css.EditorWorkbench, props.className)}>
-    <EditorReferencesContext.Provider value={references}>
-      <EditorPreviewContext.Provider value={preview}>
-        <EditorCropperContext.Provider value={cropper}>
+    <EditorImageInputContext.Provider value={input}>
+      <EditorReferencesContext.Provider value={references}>
+        <EditorPreviewContext.Provider value={preview}>
+          <EditorCropperContext.Provider value={cropper}>
 
-          {(input.image !== null) && <EditorCloseTool className={css.close}/>}
+            {(input.image !== null) && <EditorCloseButton className={css.close}/>}
 
-          <div className={css.cropper}>
-            <EditorCropperDimensionsTool className={css.tool}/>
-            <EditorCropperPositionTool className={css.tool}/>
-          </div>
+            <div className={css.cropper}>
+              <EditorDimensionsInput className={css.tool}/>
+              <EditorPositionInput className={css.tool}/>
+            </div>
 
-          <EditorZoomTool className={css.zoom}/>
+            <EditorZoomOptions className={css.zoom}/>
 
-          {(input.image !== null) && <EditorDownloadTool className={css.download}/>}
+            {(input.image !== null) && <EditorDownloadButton className={css.download}/>}
 
-          {(input.image === null) && <ImageInput className={css.input} onChange={inputChangeHandler}/>}
-          {(input.image !== null) && <EditorCanvas className={css.canvas}/>}
+            {(input.image === null) && <EditorImageInput className={css.input} onChange={inputChangeHandler}/>}
+            {(input.image !== null) && <EditorCanvas className={css.canvas}/>}
 
-        </EditorCropperContext.Provider>
-      </EditorPreviewContext.Provider>
-    </EditorReferencesContext.Provider>
+          </EditorCropperContext.Provider>
+        </EditorPreviewContext.Provider>
+      </EditorReferencesContext.Provider>
+    </EditorImageInputContext.Provider>
   </div>
 
 }

@@ -2,7 +2,7 @@
 @import "../../../styles/vars";
 
 // COMPONENT
-.EditorZoomTool {
+.EditorZoomOptions {
   display: flex;
   flex-flow: row nowrap;
   gap: 1rem;
@@ -24,7 +24,7 @@
 }
 
 // STATE
-.EditorZoomTool:not(.disabled) {
+.EditorZoomOptions:not(.disabled) {
   .button {
     background-color: $primary-normal;
     border: solid 1px $border-normal;
@@ -51,7 +51,7 @@
 }
 
 // STATE
-.EditorZoomTool.disabled {
+.EditorZoomOptions.disabled {
   .button {
     background-color: $primary-low;
     border: solid 1px $border-low;

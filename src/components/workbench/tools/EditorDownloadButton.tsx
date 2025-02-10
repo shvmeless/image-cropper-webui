@@ -2,21 +2,21 @@
 import { type ReactNode, useContext } from 'react'
 import { useClasses } from '@hooks/common/useClasses'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { ImageInputContext } from '@contexts/common/ImageInputContext'
+import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { BasicIcon } from '@ui/BasicIcon/BasicIcon'
 import { ImageReader } from '@lib/common/ImageReader'
-import css from './EditorDownloadTool.module.scss'
+import css from './EditorDownloadButton.module.scss'
 
 // PROPS
-interface EditorDownloadToolProps {
+interface EditorDownloadButtonProps {
   className?: string
 }
 
 // COMPONENT
-export function EditorDownloadTool (props: EditorDownloadToolProps): ReactNode {
+export function EditorDownloadButton (props: EditorDownloadButtonProps): ReactNode {
 
   // CONTEXT
-  const input = useContext(ImageInputContext)
+  const input = useContext(EditorImageInputContext)
   const cropper = useContext(EditorCropperContext)
 
   // HANDLER
@@ -44,7 +44,7 @@ export function EditorDownloadTool (props: EditorDownloadToolProps): ReactNode {
   }
 
   // RENDER
-  return <button className={useClasses(css.EditorDownloadTool, props.className)}
+  return <button className={useClasses(css.EditorDownloadButton, props.className)}
     type='button'
     onClick={formatChangeHandler}
   >

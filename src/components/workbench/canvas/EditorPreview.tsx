@@ -6,7 +6,7 @@ import { useClasses } from '@hooks/common/useClasses'
 import { useDragging } from '@hooks/useDragging'
 import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContext'
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
-import { ImageInputContext } from '@contexts/common/ImageInputContext'
+import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { EditorCropper } from './EditorCropper'
 import css from './EditorPreview.module.scss'
 
@@ -19,7 +19,7 @@ interface EditorPreviewProps {
 export function EditorPreview (props: EditorPreviewProps): ReactNode {
 
   // CONTEXT
-  const input = useContext(ImageInputContext)
+  const input = useContext(EditorImageInputContext)
   const references = useContext(EditorReferencesContext)
   const preview = useContext(EditorPreviewContext)
 

@@ -4,20 +4,20 @@ import { CropperCalculator } from '@lib/editor/CropperCalculator'
 import type { Dimensions } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { ImageInputContext } from '@contexts/common/ImageInputContext'
+import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { NumberInput } from '@ui/NumberInput/NumberInput'
-import css from './EditorCropperDimensionsTool.module.scss'
+import css from './EditorDimensionsInput.module.scss'
 
 // PROPS
-interface EditorCropperDimensionsToolProps {
+interface EditorDimensionsInputProps {
   className?: string
 }
 
 // COMPONENT
-export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolProps): ReactNode {
+export function EditorDimensionsInput (props: EditorDimensionsInputProps): ReactNode {
 
   // CONTEXT
-  const input = useContext(ImageInputContext)
+  const input = useContext(EditorImageInputContext)
   const cropper = useContext(EditorCropperContext)
 
   // STATE
@@ -75,7 +75,7 @@ export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolP
 
   // RENDER
   return <div
-    className={useClasses(css.EditorCropperDimensionsTool, props.className, (input.image === null) && css.disabled)}
+    className={useClasses(css.EditorDimensionsInput, props.className, (input.image === null) && css.disabled)}
   >
 
     <div className={css.item}>

@@ -2,7 +2,7 @@
 @import '../../../styles/vars';
 
 // COMPONENT
-.EditorCropperDimensionsTool {
+.EditorDimensionsInput {
   display: flex;
   flex-flow: row nowrap;
   gap: 1rem;
@@ -34,7 +34,7 @@
 }
 
 // STATE
-.EditorCropperDimensionsTool.disabled {
+.EditorDimensionsInput.disabled {
   .item {
     .label {
       background-color: $primary-low;
@@ -52,7 +52,7 @@
 }
 
 // STATE
-.EditorCropperDimensionsTool:not(.disabled) {
+.EditorDimensionsInput:not(.disabled) {
   .item {
     .label {
       background-color: $primary-normal;

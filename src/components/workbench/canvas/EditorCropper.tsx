@@ -7,7 +7,7 @@ import { useClasses } from '@hooks/common/useClasses'
 import { useDragging } from '@hooks/useDragging'
 import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContext'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { ImageInputContext } from '@contexts/common/ImageInputContext'
+import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import css from './EditorCropper.module.scss'
 
 // PROPS
@@ -19,7 +19,7 @@ interface EditorCropperProps {
 export function EditorCropper (props: EditorCropperProps): ReactNode {
 
   // CONTEXTS
-  const input = useContext(ImageInputContext)
+  const input = useContext(EditorImageInputContext)
   const references = useContext(EditorReferencesContext)
   const cropper = useContext(EditorCropperContext)
 

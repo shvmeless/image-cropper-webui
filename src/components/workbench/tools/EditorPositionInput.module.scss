@@ -2,7 +2,7 @@
 @import '../../../styles/vars';
 
 // COMPONENT
-.EditorCropperPositionTool {
+.EditorPositionInput {
   display: flex;
   flex-flow: row nowrap;
   gap: 1rem;
@@ -34,7 +34,7 @@
 }
 
 // STATE
-.EditorCropperPositionTool.disabled {
+.EditorPositionInput.disabled {
   .item {
     .label {
       background-color: $primary-low;
@@ -52,7 +52,7 @@
 }
 
 // STATE
-.EditorCropperPositionTool:not(.disabled) {
+.EditorPositionInput:not(.disabled) {
   .item {
     .label {
       background-color: $primary-normal;
