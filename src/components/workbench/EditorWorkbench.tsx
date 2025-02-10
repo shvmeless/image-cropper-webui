@@ -9,7 +9,6 @@ import { EditorCropperPositionTool } from './tools/EditorCropperPositionTool'
 import { EditorDownloadTool } from './tools/EditorDownloadTool'
 import { EditorCloseTool } from './tools/EditorCloseTool'
 import { EditorZoomTool } from './tools/EditorZoomTool'
-import { EditorDevData } from './tools/EditorDevData'
 import { EditorCanvas } from './canvas/EditorCanvas'
 import css from './EditorWorkbench.module.scss'
 
@@ -32,12 +31,11 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
       <EditorPreviewContext.Provider value={preview}>
         <EditorCropperContext.Provider value={cropper}>
 
-          <EditorDevData className={css.dev}/>
+          <EditorCloseTool className={css.close}/>
           <div className={css.cropper}>
             <EditorCropperDimensionsTool className={css.tool}/>
             <EditorCropperPositionTool className={css.tool}/>
           </div>
-          <EditorCloseTool className={css.close}/>
           <EditorZoomTool className={css.zoom}/>
           <EditorDownloadTool className={css.download}/>
 
