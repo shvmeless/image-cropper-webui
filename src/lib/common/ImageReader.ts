@@ -1,5 +1,5 @@
 // IMPORTS
-import type { Dimensions } from './types'
+import type { Dimensions, Position } from './types'
 
 // INTERFACE
 export interface InputImage {
@@ -7,6 +7,9 @@ export interface InputImage {
   dimensions: Dimensions
   blob: Blob
 }
+
+// TYPE
+export type ImageType = 'image/png' | 'image/jpeg' | 'image/webp'
 
 // MODULE
 export const ImageReader = {
@@ -62,6 +65,44 @@ export const ImageReader = {
         height: img.height,
       },
     }
+
+  },
+
+  // FUNCTION
+  async blobToImage (blob: Blob): Promise<HTMLImageElement> {
+    const url = URL.createObjectURL(blob)
+    const img = new Image()
+    await this.loadImage(img, url)
+    return img
+  },
+
+  // FUNCTION
+  async canvasToBlob (canvas: HTMLCanvasElement, type: ImageType): Promise<Blob> {
+    return await new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob === null) {
+          reject(new Error('Failed to get blob'))
+          return
+        }
+        resolve(blob)
+      }, type, 1)
+    })
+  },
+
+  // FUNCTION
+  async cropImage (img: HTMLImageElement, cropper: Dimensions & Position): Promise<HTMLCanvasElement> {
+
+    const canvas = document.createElement('canvas')
+
+    const ctx = canvas.getContext('2d')
+    if (ctx === null) throw new Error('Failed to get 2D context')
+
+    canvas.width = cropper.width
+    canvas.height = cropper.height
+
+    ctx.drawImage(img, cropper.x, cropper.y, cropper.width, cropper.height, 0, 0, cropper.width, cropper.height)
+
+    return canvas
 
   },
 
