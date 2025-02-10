@@ -1,3 +1,3 @@
 # Image Cropper
 
-A web tool for cropping images.
+A website with a series of tools to cut images.
