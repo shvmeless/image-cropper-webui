@@ -5,35 +5,43 @@
 .EditorCropperPositionTool {
   display: flex;
   flex-flow: row nowrap;
+  gap: 1rem;
 
-  background-color: $primary-normal;
-  border: solid 1px $border-normal;
-  border-radius: $radius-low;
-
-  > :not(:first-child) {
-    border-left: 1px solid $border-normal;
-  }
-
-  .label {
-    display: grid;
-    place-items: center;
-    height: 3rem;
-    min-height: 3rem;
-    width: 3rem;
-    min-width: 3rem;
-  }
-
-  .input {
-    height: 3rem;
-    text-align: right;
-    padding: 0 1rem;
+  .item {
+    display: flex;
+    flex-flow: row nowrap;
     flex-grow: 1;
-    width: 0;
 
-    &:focus {
-      background-color: $primary-strong;
-      outline: solid 2px $border-strong;
-      outline-offset: -1px;
+    .label {
+      display: grid;
+      place-items: center;
+      height: 3rem;
+      min-height: 3rem;
+      width: 3rem;
+      min-width: 3rem;
+
+      border-radius: $radius-low 0 0 $radius-low;
+      background-color: $primary-normal;
+      border: solid 1px $border-normal;
+      border-right: none;
+    }
+
+    .input {
+      height: 3rem;
+      text-align: right;
+      padding: 0 1rem;
+      flex-grow: 1;
+      width: 0;
+
+      border-radius: 0 $radius-low $radius-low 0;
+      background-color: $primary-normal;
+      border: solid 1px $border-normal;
+
+      &:focus {
+        background-color: $primary-strong;
+        outline: solid 2px $border-strong;
+        outline-offset: -2px;
+      }
     }
   }
 }

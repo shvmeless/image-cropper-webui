@@ -74,23 +74,27 @@ export function EditorCropperPositionTool (props: EditorCropperPositionToolProps
   // RENDER
   return <div className={useClasses(css.EditorCropperPositionTool, props.className)}>
 
-    <div className={css.label}><span>{'X'}</span></div>
-    <NumberInput
-      className={css.input}
-      placeholder=''
-      value={values.x}
-      onValueChange={(x) => { updateValues({ x }) }}
-      onComponentBlur={(x) => { inputChangeHandler('x', x) }}
-    />
+    <div className={css.item}>
+      <div className={css.label}><span>{'X'}</span></div>
+      <NumberInput
+        className={css.input}
+        placeholder=''
+        value={values.x}
+        onValueChange={(x) => { updateValues({ x }) }}
+        onComponentBlur={(x) => { inputChangeHandler('x', x) }}
+      />
+    </div>
 
-    <div className={css.label}><span>{'Y'}</span></div>
-    <NumberInput
-      className={css.input}
-      placeholder=''
-      value={values.y}
-      onValueChange={(y) => { updateValues({ y }) }}
-      onComponentBlur={(y) => { inputChangeHandler('y', y) }}
-    />
+    <div className={css.item}>
+      <div className={css.label}><span>{'Y'}</span></div>
+      <NumberInput
+        className={css.input}
+        placeholder=''
+        value={values.y}
+        onValueChange={(y) => { updateValues({ y }) }}
+        onComponentBlur={(y) => { inputChangeHandler('y', y) }}
+      />
+    </div>
 
   </div>
 

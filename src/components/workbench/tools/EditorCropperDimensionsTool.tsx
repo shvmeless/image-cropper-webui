@@ -74,23 +74,27 @@ export function EditorCropperDimensionsTool (props: EditorCropperDimensionsToolP
   // RENDER
   return <div className={useClasses(css.EditorCropperDimensionsTool, props.className)}>
 
-    <div className={css.label}><span>{'W'}</span></div>
-    <NumberInput
-      className={css.input}
-      placeholder=''
-      value={values.width}
-      onValueChange={(width) => { updateValues({ width }) }}
-      onComponentBlur={(width) => { inputChangeHandler('width', width) }}
-    />
+    <div className={css.item}>
+      <div className={css.label}><span>{'W'}</span></div>
+      <NumberInput
+        className={css.input}
+        placeholder=''
+        value={values.width}
+        onValueChange={(width) => { updateValues({ width }) }}
+        onComponentBlur={(width) => { inputChangeHandler('width', width) }}
+      />
+    </div>
 
-    <div className={css.label}><span>{'H'}</span></div>
-    <NumberInput
-      className={css.input}
-      placeholder=''
-      value={values.height}
-      onValueChange={(height) => { updateValues({ height }) }}
-      onComponentBlur={(height) => { inputChangeHandler('height', height) }}
-    />
+    <div className={css.item}>
+      <div className={css.label}><span>{'H'}</span></div>
+      <NumberInput
+        className={css.input}
+        placeholder=''
+        value={values.height}
+        onValueChange={(height) => { updateValues({ height }) }}
+        onComponentBlur={(height) => { inputChangeHandler('height', height) }}
+      />
+    </div>
 
   </div>
 
