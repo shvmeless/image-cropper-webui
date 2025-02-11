@@ -5,16 +5,11 @@ import type { Dimensions } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
-import { BasicIcon } from '@ui/BasicIcon/BasicIcon'
+import { BasicIconButton } from '@ui/buttons/BasicIconButton'
 import css from './EditorZoomOptions.module.scss'
 
-// PROPS
-interface EditorZoomOptionsProps {
-  className?: string
-}
-
 // COMPONENT
-export function EditorZoomOptions (props: EditorZoomOptionsProps): ReactNode {
+export function EditorZoomOptions (): ReactNode {
 
   // CONTEXT
   const input = useContext(EditorImageInputContext)
@@ -58,30 +53,26 @@ export function EditorZoomOptions (props: EditorZoomOptionsProps): ReactNode {
   }
 
   // RENDER
-  return <div
-    className={useClasses(css.EditorZoomOptions, props.className, (input.image === null) && css.disabled)}
-  >
+  return <>
 
-    <button className={css.button}
-      type='button'
+    <BasicIconButton className={css.button}
+      icon='minus'
       onClick={(): void => { changeZoom('OUT') }}
       disabled={input.image === null}
-    >
-      <BasicIcon icon='minus'/>
-    </button>
+    />
 
-    <div className={css.value}>
-      <span>{Math.round(value)}{'%'}</span>
-    </div>
+    <input className={useClasses(css.value, (input.image === null) && css.disabled)}
+      value={`${Math.round(value)}%`}
+      disabled={input.image === null}
+      readOnly
+    />
 
-    <button className={css.button}
-      type='button'
+    <BasicIconButton className={css.button}
+      icon='plus'
       onClick={(): void => { changeZoom('IN') }}
       disabled={input.image === null}
-    >
-      <BasicIcon icon='plus'/>
-    </button>
+    />
 
-  </div>
+  </>
 
 }

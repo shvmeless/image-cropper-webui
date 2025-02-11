@@ -46,6 +46,11 @@
     width: 25rem;
     bottom: 2rem;
     left: calc(50% - 12.5rem);
+
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+
     z-index: 1;
   }
 

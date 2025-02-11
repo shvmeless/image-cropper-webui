@@ -1,10 +1,10 @@
 // IMPORTS
 import { type ReactNode, useContext } from 'react'
-import { useClasses } from '@hooks/common/useClasses'
-import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
-import { BasicIcon } from '@ui/BasicIcon/BasicIcon'
 import { ImageReader } from '@lib/common/ImageReader'
+import { useClasses } from '@hooks/common/useClasses'
+import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
+import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
+import { BasicIconButton } from '@ui/buttons/BasicIconButton'
 import css from './EditorDownloadButton.module.scss'
 
 // PROPS
@@ -44,11 +44,11 @@ export function EditorDownloadButton (props: EditorDownloadButtonProps): ReactNo
   }
 
   // RENDER
-  return <button className={useClasses(css.EditorDownloadButton, props.className)}
-    type='button'
+  return <BasicIconButton
+    className={useClasses(css.EditorDownloadButton, props.className)}
+    icon='download'
+    iconSize='small'
     onClick={formatChangeHandler}
-  >
-    <BasicIcon icon='download' size='small'/>
-  </button>
+  />
 
 }

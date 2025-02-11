@@ -49,7 +49,9 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
               <EditorPositionInput className={css.tool}/>
             </div>
 
-            <EditorZoomOptions className={css.zoom}/>
+            <div className={css.zoom}>
+              <EditorZoomOptions/>
+            </div>
 
             {(input.image !== null) && <EditorDownloadButton className={css.download}/>}
 

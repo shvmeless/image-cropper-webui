@@ -1,66 +1,35 @@
 // IMPORTS
-@import "../../../styles/vars";
+@import '../../../styles/vars';
 
-// COMPONENT
-.EditorZoomOptions {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 1rem;
-
-  .button {
-    display: grid;
-    place-items: center;
-    height: 3rem;
-    width: 3rem;
-    border-radius: $radius-small;
-  }
-
-  .value {
-    display: grid;
-    place-items: center;
-    flex-grow: 1;
-    border-radius: $radius-small;
-  }
+// ELEMENT
+.button {
+  height: 3rem;
+  min-height: 3rem;
+  width: 3rem;
+  min-width: 3rem;
 }
 
-// STATE
-.EditorZoomOptions:not(.disabled) {
-  .button {
-    background-color: $primary-normal;
-    border: solid 1px $border-normal;
-    color: $text-normal;
-
-    &:hover {
-      background-color: $primary-strong;
-      border: solid 1px $border-strong;
-      color: $text-strong;
-    }
-
-    &:focus {
-      background-color: $primary-strong;
-      border: solid 2px $border-strong;
-      color: $text-strong;
-    }
-  }
-
-  .value {
-    background-color: $primary-normal;
-    border: solid 1px $border-normal;
-    color: $text-normal;
-  }
+// ELEMENT
+.value {
+  display: grid;
+  place-items: center;
+  height: 3rem;
+  min-height: 3rem;
+  flex-grow: 1;
+  border-radius: $radius-small;
+  cursor: default
 }
 
-// STATE
-.EditorZoomOptions.disabled {
-  .button {
-    background-color: $primary-low;
-    border: solid 1px $border-low;
-    color: $text-low;
-  }
+// ELEMENT
+.value:disabled {
+  background-color: $primary-low;
+  border: solid 1px $border-low;
+  color: $text-low;
+}
 
-  .value {
-    background-color: $primary-low;
-    border: solid 1px $border-low;
-    color: $text-low;
-  }
+// ELEMENT
+.value:not(:disabled) {
+  background-color: $primary-normal;
+  border: solid 1px $border-normal;
+  color: $text-normal;
 }
