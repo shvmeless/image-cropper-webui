@@ -19,7 +19,7 @@
       min-height: 3rem;
       width: 3rem;
       min-width: 3rem;
-      border-radius: $radius-low 0 0 $radius-low;
+      border-radius: $radius-small 0 0 $radius-small;
     }
 
     .input {
@@ -28,7 +28,7 @@
       padding: 0 1rem;
       flex-grow: 1;
       width: 0;
-      border-radius: 0 $radius-low $radius-low 0;
+      border-radius: 0 $radius-small $radius-small 0;
     }
   }
 }
@@ -39,14 +39,14 @@
     .label {
       background-color: $primary-low;
       border: solid 1px $border-low;
-      color: $primary-text-low;
+      color: $text-low;
       border-right: none;
     }
 
     .input {
       background-color: $primary-low;
       border: solid 1px $border-low;
-      color: $primary-text-low;
+      color: $text-low;
     }
   }
 }
@@ -57,19 +57,19 @@
     .label {
       background-color: $primary-normal;
       border: solid 1px $border-normal;
-      color: $primary-text-normal;
+      color: $text-normal;
       border-right: none;
     }
 
     .input {
       background-color: $primary-normal;
       border: solid 1px $border-normal;
-      color: $primary-text-normal;
+      color: $text-normal;
 
       &:focus {
         background-color: $primary-strong;
         border: solid 1px $border-strong;
-        color: $primary-text-strong;
+        color: $text-strong;
       }
     }
   }

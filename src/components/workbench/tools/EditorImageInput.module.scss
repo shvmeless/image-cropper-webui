@@ -16,7 +16,7 @@
 
   .icon {
     stroke-width: 1pt;
-    color: $primary-text-normal;
+    color: $text-normal;
   }
 
   .text{
@@ -25,7 +25,7 @@
     align-items: center;
 
     .title {
-      color: $primary-text-normal;
+      color: $text-normal;
     }
     .subtitle {
       color: $tertiary-normal;
@@ -45,12 +45,12 @@
 // STATE
 .EditorImageInput:hover {
   .icon {
-    color: $primary-text-strong;
+    color: $text-strong;
   }
 
   .text {
     .title {
-      color: $primary-text-strong;
+      color: $text-strong;
     }
     .subtitle {
       color: $tertiary-strong;
@@ -64,12 +64,12 @@
   background-color: $primary-low;
 
   .icon {
-    color: $primary-text-strong;
+    color: $text-strong;
   }
 
   .text {
     .title {
-      color: $primary-text-strong;
+      color: $text-strong;
     }
     .subtitle {
       color: $tertiary-strong;

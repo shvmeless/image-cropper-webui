@@ -1,22 +1,27 @@
-// PRIMARY COLORS
+// PRIMARY
 $primary-low: rgb(0, 0, 0);
 $primary-normal: rgb(15, 15, 15);
 $primary-strong: rgb(30, 30, 30);
 
-// PRIMARY TEXT COLORS
-$primary-text-low: rgb(155, 155, 155);
-$primary-text-normal: rgb(205, 205, 205);
-$primary-text-strong: rgb(255, 255, 255);
+// TEXT
+$text-low: rgb(155, 155, 155);
+$text-normal: rgb(205, 205, 205);
+$text-strong: rgb(255, 255, 255);
 
-// TERTIARY COLORS
+// BORDER
+$border-low: rgb(90, 90, 90);
+$border-normal: rgb(120, 120, 120);
+$border-strong: rgb(180, 180, 180);
+
+// TERTIARY
 $tertiary-low: rgb(115, 85, 195);
 $tertiary-normal: rgb(145, 115, 225);
 $tertiary-strong: rgb(175, 145, 255);
 
-// BORDER COLORS
-$border-low: rgb(90, 90, 90);
-$border-normal: rgb(120, 120, 120);
-$border-strong: rgb(150, 150, 150);
+// TERTIARY TRANSPARENT
+$tertiary-transparent-low: rgba(145, 115, 225, 10%);
+$tertiary-transparent-normal: rgba(145, 115, 225, 20%);
+$tertiary-transparent-strong: rgba(145, 115, 225, 30%);
 
 // FONT
 $font-size-small: 1.2rem;
@@ -29,6 +34,6 @@ $font-weight-normal: 400;
 $font-weight-bold: 600;
 
 // OTHERS
-$radius-low: 1rem;
-$radius-normal: 1.25rem;
+$radius-small: 1rem;
+$radius-medium: 1.25rem;
 $radius-large: 1.5rem;
