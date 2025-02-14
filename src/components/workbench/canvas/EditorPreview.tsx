@@ -2,6 +2,7 @@
 import { type MouseEvent, useContext, useEffect, type ReactNode, type WheelEvent } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
+import { EditorConverter } from '@lib/editor/EditorConverter'
 import { useClasses } from '@hooks/common/useClasses'
 import { useDragging } from '@hooks/useDragging'
 import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContext'
@@ -86,15 +87,15 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
     if (!event.altKey) return
 
     if (input.image === null) return
-    if (references.preview.current === null) return
     if (preview.values.current === null) return
+    if (references.preview.current === null) return
+    if (references.cropper.current === null) return
+
+    const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+    const position = converter.relativeToPreview(event)
 
     const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
-    const previewRect = references.preview.current.getBoundingClientRect()
-    const result = calculator.zoomAt({
-      x: event.clientX - previewRect.left,
-      y: event.clientY - previewRect.top,
-    }, (event.deltaY < 0) ? 0.1 : -0.1)
+    const result = calculator.zoomAt(position, (event.deltaY < 0) ? 0.1 : -0.1)
 
     preview.setValues(result)
 

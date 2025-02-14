@@ -32,10 +32,10 @@ export function useEditorCropper (): EditorCropperHook {
 
     // METHOD
     setValues: (value: Dimensions & Position): void => {
-      values.current.width = Math.round(value.width)
-      values.current.height = Math.round(value.height)
-      values.current.x = Math.round(value.x)
-      values.current.y = Math.round(value.y)
+      values.current.width = value.width
+      values.current.height = value.height
+      values.current.x = value.x
+      values.current.y = value.y
       subscriber.notify(values.current)
     },
 

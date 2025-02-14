@@ -1,7 +1,7 @@
 // IMPORTS
 import { type MouseEvent, useContext, useEffect, type ReactNode } from 'react'
-import { EditorClientConverter } from '@lib/editor/ClientConverter'
 import { CropperCalculator } from '@lib/editor/CropperCalculator'
+import { EditorConverter } from '@lib/editor/EditorConverter'
 import type { Dimensions, Position } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
 import { useDragging } from '@hooks/useDragging'
@@ -68,25 +68,35 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
     if (start.shiftKey || start.ctrlKey || start.metaKey || start.altKey) return
     start.stopPropagation()
 
+    if (input.image === null) return
     if (references.cropper.current === null) return
+    if (references.preview.current === null) return
 
-    const cropperRect = references.cropper.current.getBoundingClientRect()
+    const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+    let diff = converter.relativeToCropper(start)
+    diff = converter.proportionalToImage(diff)
 
-    const diffX = start.clientX - cropperRect.left
-    const diffY = start.clientY - cropperRect.top
+    diff.x = Math.floor(diff.x)
+    diff.y = Math.floor(diff.y)
 
     dragging.update((target) => {
 
       if (input.image === null) return
       if (cropper.values.current === null) return
       if (references.preview.current === null) return
+      if (references.cropper.current === null) return
 
-      const previewRect = references.preview.current.getBoundingClientRect()
+      const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+
+      let position = converter.relativeToPreview(target)
+      position = converter.proportionalToImage(position)
+      position.x = Math.floor(position.x)
+      position.y = Math.floor(position.y)
+
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-
       const result = calculator.setPosition({
-        x: (target.clientX - previewRect.left - diffX) * input.image.dimensions.width / previewRect.width,
-        y: (target.clientY - previewRect.top - diffY) * input.image.dimensions.height / previewRect.height,
+        x: position.x - diff.x,
+        y: position.y - diff.y,
       })
 
       cropper.setValues(result)
@@ -104,11 +114,16 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       if (input.image === null) return
       if (cropper.values.current === null) return
       if (references.preview.current === null) return
+      if (references.cropper.current === null) return
+
+      const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+
+      let position = converter.relativeToPreview(target)
+      position = converter.proportionalToImage(position)
+      position.x = Math.round(position.x)
+      position.y = Math.round(position.y)
 
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      const converter = EditorClientConverter(input.image.dimensions, references.preview.current)
-
-      const position = converter.relativeToImage(target)
       let result = { ...cropper.values.current }
 
       if (side === 'top') result = calculator.moveTopSide(position.y)
@@ -131,12 +146,17 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       if (input.image === null) return
       if (cropper.values.current === null) return
       if (references.preview.current === null) return
+      if (references.cropper.current === null) return
+
+      const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+
+      let position = converter.relativeToPreview(target)
+      position = converter.proportionalToImage(position)
+      position.x = Math.round(position.x)
+      position.y = Math.round(position.y)
 
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      const converter = EditorClientConverter(input.image.dimensions, references.preview.current)
-
       let result = { ...cropper.values.current }
-      const position = converter.relativeToImage(target)
 
       if (corner === 'top_left') result = calculator.moveTopLeftCorner(position)
       else if (corner === 'top_right') result = calculator.moveTopRightCorner(position)

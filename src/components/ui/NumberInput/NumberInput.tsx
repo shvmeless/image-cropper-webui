@@ -18,12 +18,16 @@ export function NumberInput (props: NumberInputProps): ReactNode {
 
   // HANDLER
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    props.onValueChange(parseInt(event.target.value))
+    if (props.disabled === true) return
+    const number = Number(event.target.value)
+    props.onValueChange(number)
   }
 
   // HANDLER
   const onBlurHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
-    props.onComponentBlur?.(parseInt(event.target.value))
+    if (props.disabled === true) return
+    const number = Number(event.target.value)
+    props.onComponentBlur?.(number)
   }
 
   // RENDER

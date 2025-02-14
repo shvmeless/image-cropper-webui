@@ -35,7 +35,8 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
     }
 
     const callback = (values: Dimensions): void => {
-      const { width, height } = values
+      const width = Math.round(values.width)
+      const height = Math.round(values.height)
       setValues({ width, height })
     }
 
@@ -52,7 +53,7 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
   }
 
   // FUNCTION
-  const inputChangeHandler = (property: string, value: number): void => {
+  const inputChangeHandler = (property: keyof Dimensions, value: number): void => {
 
     if (input.image === null) return
     if (cropper.values.current === null) return
@@ -62,12 +63,13 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
       return
     }
 
+    value = Math.round(value)
+
     const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
     let result = { ...cropper.values.current }
 
     if (property === 'width') result = calculator.setWidth(value)
-    else if (property === 'height') result = calculator.setHeight(value)
-    else return
+    else result = calculator.setHeight(value)
 
     cropper.setValues(result)
 

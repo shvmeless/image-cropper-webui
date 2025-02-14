@@ -35,7 +35,8 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
     }
 
     const callback = (values: Position): void => {
-      const { x, y } = values
+      const x = Math.round(values.x)
+      const y = Math.round(values.y)
       setValues({ x, y })
     }
 
@@ -52,7 +53,7 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
   }
 
   // FUNCTION
-  const inputChangeHandler = (property: string, value: number): void => {
+  const inputChangeHandler = (property: keyof Position, value: number): void => {
 
     if (input.image === null) return
     if (cropper.values.current === null) return
@@ -62,12 +63,13 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
       return
     }
 
+    value = Math.round(value)
+
     const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
     let result = { ...cropper.values.current }
 
     if (property === 'x') result = calculator.setX(value)
-    else if (property === 'y') result = calculator.setY(value)
-    else return
+    else result = calculator.setY(value)
 
     cropper.setValues(result)
 
