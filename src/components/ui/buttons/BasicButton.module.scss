@@ -1,0 +1,50 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.BasicButton {
+  display: grid;
+  place-items: center;
+  border-radius: $radius-small;
+}
+
+// STATE
+.BasicButton:disabled {
+  background-color: $primary-low;
+  border: solid 1px $border-low;
+  color: $text-low;
+}
+
+// STATE
+.BasicButton:not(:disabled) {
+  background-color: $primary-normal;
+  border: solid 1px $border-normal;
+  color: $text-normal;
+
+  &:hover {
+    background-color: $primary-strong;
+  }
+
+  &:focus-visible {
+    background-color: $primary-strong;
+    border: solid 2px $border-strong;
+    color: $text-strong;
+  }
+}
+
+// STATE
+.BasicButton:not(:disabled).active {
+  background-color: $tertiary-transparent-normal;
+  border: solid 1px $tertiary-normal;
+  color: $text-normal;
+
+  &:hover {
+    background-color: $tertiary-transparent-normal;
+  }
+
+  &:focus-visible {
+    background-color: $tertiary-transparent-normal;
+    border: solid 2px $tertiary-normal;
+    color: $text-normal;
+  }
+}

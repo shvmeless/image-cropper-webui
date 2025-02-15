@@ -6,8 +6,9 @@ import type { Dimensions, Position } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
 import { useDragging } from '@hooks/useDragging'
 import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContext'
-import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
+import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
+import { AspectRatioContext } from '@contexts/editor/AspectRatioContext'
 import css from './EditorCropper.module.scss'
 
 // PROPS
@@ -22,6 +23,7 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
   const input = useContext(EditorImageInputContext)
   const references = useContext(EditorReferencesContext)
   const cropper = useContext(EditorCropperContext)
+  const ratio = useContext(AspectRatioContext)
 
   // RENDER
   if (input.image === null) return null
@@ -126,10 +128,10 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
       let result = { ...cropper.values.current }
 
-      if (side === 'top') result = calculator.moveTopSide(position.y)
-      else if (side === 'right') result = calculator.moveRightSide(position.x)
-      else if (side === 'bottom') result = calculator.moveBottomSide(position.y)
-      else result = calculator.moveLeftSide(position.x)
+      if (side === 'top') result = calculator.moveTopSide(position.y, ratio.values)
+      else if (side === 'right') result = calculator.moveRightSide(position.x, ratio.values)
+      else if (side === 'bottom') result = calculator.moveBottomSide(position.y, ratio.values)
+      else result = calculator.moveLeftSide(position.x, ratio.values)
 
       cropper.setValues(result)
 
@@ -158,10 +160,10 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
       let result = { ...cropper.values.current }
 
-      if (corner === 'top_left') result = calculator.moveTopLeftCorner(position)
-      else if (corner === 'top_right') result = calculator.moveTopRightCorner(position)
-      else if (corner === 'bottom_right') result = calculator.moveBottomRightCorner(position)
-      else result = calculator.moveBottomLeftCorner(position)
+      if (corner === 'top_right') result = calculator.moveTopRightCorner(position, ratio.values)
+      else if (corner === 'bottom_right') result = calculator.moveBottomRightCorner(position, ratio.values)
+      else if (corner === 'bottom_left') result = calculator.moveBottomLeftCorner(position, ratio.values)
+      else result = calculator.moveTopLeftCorner(position, ratio.values)
 
       cropper.setValues(result)
 

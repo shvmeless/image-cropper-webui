@@ -5,13 +5,6 @@
 .EditorWorkbench {
   position: relative;
 
-  .dev {
-    position: absolute;
-    left: 2rem;
-    bottom: 2rem;
-    z-index: 1;
-  }
-
   .close {
     position: absolute;
     left: 2rem;
@@ -38,6 +31,27 @@
     .tool {
       pointer-events: all;
       width: 20rem;
+    }
+  }
+
+  .ratios {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: center;
+    align-content: flex-start;
+    gap: 1rem;
+
+    pointer-events: none;
+    height: calc(100% - 4rem);
+    z-index: 1;
+
+    * {
+      pointer-events: all;
     }
   }
 

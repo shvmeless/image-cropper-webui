@@ -7,6 +7,7 @@ import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { NumberInput } from '@ui/NumberInput/NumberInput'
 import css from './EditorDimensionsInput.module.scss'
+import { AspectRatioContext } from '@contexts/editor/AspectRatioContext'
 
 // PROPS
 interface EditorDimensionsInputProps {
@@ -19,6 +20,7 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
   // CONTEXT
   const input = useContext(EditorImageInputContext)
   const cropper = useContext(EditorCropperContext)
+  const ratio = useContext(AspectRatioContext)
 
   // STATE
   const [values, setValues] = useState({
@@ -68,8 +70,8 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
     const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
     let result = { ...cropper.values.current }
 
-    if (property === 'width') result = calculator.setWidth(value)
-    else result = calculator.setHeight(value)
+    if (property === 'width') result = calculator.setWidth(value, ratio.values)
+    else result = calculator.setHeight(value, ratio.values)
 
     cropper.setValues(result)
 
