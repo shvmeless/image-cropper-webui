@@ -1,5 +1,5 @@
 // IMPORTS
-import { type ReactNode, type WheelEvent, type MouseEvent, useContext, useEffect } from 'react'
+import { type ReactNode, type WheelEvent, type MouseEvent, useContext, useEffect, useRef } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
 import { EditorUtils } from '@lib/editor/EditorUtils'
@@ -8,6 +8,7 @@ import { useDragging } from '@hooks/useDragging'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { EditorElementsContext } from '@contexts/editor/EditorElementsContext'
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
+import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 import { EditorCropper } from './EditorCropper'
 import css from './EditorPreview.module.scss'
 
@@ -23,12 +24,16 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
   const input = useContext(EditorImageInputContext)
   const elements = useContext(EditorElementsContext)
   const preview = useContext(EditorPreviewContext)
+  const tools = useContext(EditorToolsContext)
 
   // RENDER
   if (input.image === null) return null
 
   // STATE
   const dragging = useDragging()
+
+  // ELEMENTS
+  const imageRef = useRef<HTMLImageElement>(null)
 
   // EFFECT
   useEffect(() => {
@@ -60,6 +65,13 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
     preview.setValues(result)
 
   }, [input.image])
+
+  // EFFECT
+  useEffect(() => {
+    if (imageRef.current === null) return
+    const renderMode = (tools.renderMode === 'default') ? 'auto' : 'pixelated'
+    imageRef.current.style.imageRendering = renderMode
+  }, [tools.renderMode])
 
   // HANDLER
   const mouseDownHandler = (event: MouseEvent<HTMLDivElement>): void => {
@@ -108,7 +120,8 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
     onWheel={onEditorWheel}
   >
 
-    <img className={css.image}
+    <img ref={imageRef}
+      className={css.image}
       alt={input.image.name}
       src={URL.createObjectURL(input.image.blob)}
       draggable={false}

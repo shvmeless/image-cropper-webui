@@ -8,7 +8,7 @@ import { useDragging } from '@hooks/useDragging'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { EditorElementsContext } from '@contexts/editor/EditorElementsContext'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { AspectRatioContext } from '@contexts/editor/AspectRatioContext'
+import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 import css from './EditorCropper.module.scss'
 
 // PROPS
@@ -23,7 +23,7 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
   const input = useContext(EditorImageInputContext)
   const elements = useContext(EditorElementsContext)
   const cropper = useContext(EditorCropperContext)
-  const ratio = useContext(AspectRatioContext)
+  const tools = useContext(EditorToolsContext)
 
   // RENDER
   if (input.image === null) return null
@@ -122,7 +122,7 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       position = utils.round(position)
 
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      const result = calculator.moveSide(side, position, ratio.values)
+      const result = calculator.moveSide(side, position, tools.aspectRatio)
 
       cropper.setValues(result)
 
@@ -148,7 +148,7 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       position = utils.round(position)
 
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      const result = calculator.moveCorner(corner, position, ratio.values)
+      const result = calculator.moveCorner(corner, position, tools.aspectRatio)
 
       cropper.setValues(result)
 

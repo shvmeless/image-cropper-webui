@@ -4,7 +4,7 @@ import { CropperCalculator } from '@lib/editor/CropperCalculator'
 import type { Dimensions } from '@lib/common/types'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { AspectRatioContext } from '@contexts/editor/AspectRatioContext'
+import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 import { BasicButton } from '@ui/buttons/BasicButton'
 
 // PROPS
@@ -18,14 +18,14 @@ export function AspectRatioButton (props: AspectRatioButtonProps): ReactNode {
 
   // CONTEXT
   const input = useContext(EditorImageInputContext)
-  const ratio = useContext(AspectRatioContext)
   const cropper = useContext(EditorCropperContext)
+  const tools = useContext(EditorToolsContext)
 
   // HANDLER
   const clickHandler = (): void => {
     if (input.image === null) return
 
-    ratio.setValues(props.value)
+    tools.setAspectRatio(props.value)
 
     if (cropper.values.current === null) return
     const { width, height } = cropper.values.current
@@ -43,7 +43,7 @@ export function AspectRatioButton (props: AspectRatioButtonProps): ReactNode {
   return <BasicButton className={props.className}
     onClick={clickHandler}
     disabled={input.image === null}
-    active={(ratio.values !== null && (props.value.width / props.value.height) === (ratio.values.width / ratio.values.height))}
+    active={(tools.aspectRatio !== null && (props.value.width / props.value.height) === (tools.aspectRatio.width / tools.aspectRatio.height))}
   >
     <span>{props.value.width}{':'}{props.value.height}</span>
   </BasicButton>

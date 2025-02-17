@@ -2,7 +2,7 @@
 import { type ReactNode, useContext, useEffect, useState } from 'react'
 import type { Dimensions } from '@lib/common/types'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
-import { AspectRatioContext } from '@contexts/editor/AspectRatioContext'
+import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 import { BasicIconButton } from '@ui/buttons/BasicIconButton'
 import { AspectRatioButton } from './AspectRatioButton'
 import css from './AspectRatioOptions.module.scss'
@@ -29,15 +29,15 @@ export function AspectRatioOptions (): ReactNode {
 
   // CONTEXT
   const input = useContext(EditorImageInputContext)
-  const ratio = useContext(AspectRatioContext)
   const cropper = useContext(EditorCropperContext)
+  const tools = useContext(EditorToolsContext)
 
   // STATE
   const [values, setValues] = useState([...ASPECT_RATIOS])
 
   // EFFECT
   useEffect(() => {
-    ratio.setValues(null)
+    tools.setAspectRatio(null)
   }, [input.image])
 
   // HANDLER
@@ -45,14 +45,14 @@ export function AspectRatioOptions (): ReactNode {
     if (input.image === null) return
     setValues(rotate(values))
 
-    if (ratio.values === null) return
+    if (tools.aspectRatio === null) return
 
     const newRatio = {
-      width: ratio.values.height,
-      height: ratio.values.width,
+      width: tools.aspectRatio.height,
+      height: tools.aspectRatio.width,
     }
 
-    ratio.setValues(newRatio)
+    tools.setAspectRatio(newRatio)
 
     if (cropper.values.current === null) return
     const { width, height } = cropper.values.current
@@ -69,7 +69,7 @@ export function AspectRatioOptions (): ReactNode {
   // HANDLER
   const removeHandler = (): void => {
     if (input.image === null) return
-    ratio.setValues(null)
+    tools.setAspectRatio(null)
   }
 
   // RENDER
@@ -87,7 +87,7 @@ export function AspectRatioOptions (): ReactNode {
       key={index}
     />))}
 
-    {(ratio.values !== null) && (<BasicIconButton className={css.button}
+    {(tools.aspectRatio !== null) && (<BasicIconButton className={css.button}
       icon='close'
       iconSize='small'
       disabled={input.image === null}

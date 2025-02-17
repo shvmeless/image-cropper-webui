@@ -11,6 +11,8 @@ const ICONS = {
   rotate: <><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M19.95 11a8 8 0 1 0 -.5 4m.5 5v-5h-5'/></>,
   plus: <><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M12 5l0 14'/><path d='M5 12l14 0'/></>,
   minus: <><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M5 12l14 0'/></>,
+  renderDefault: <><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M17.765 17.757l-5.765 3.243l-8 -4.5v-9l2.236 -1.258m2.57 -1.445l3.194 -1.797l8 4.5v8.5'/><path d='M14.561 10.559l5.439 -3.059'/><path d='M12 12v9'/><path d='M12 12l-8 -4.5'/><path d='M3 3l18 18'/></>,
+  renderPixelated: <><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5'/><path d='M12 12l8 -4.5'/><path d='M12 12l0 9'/><path d='M12 12l-8 -4.5'/></>,
 }
 
 // TYPE

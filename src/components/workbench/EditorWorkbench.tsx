@@ -5,7 +5,7 @@ import { EditorElementsContext, useEditorElements } from '@contexts/editor/Edito
 import { EditorImageInputContext, useEditorImageInput } from '@contexts/editor/EditorImageInputContext'
 import { EditorCropperContext, useEditorCropper } from '@contexts/editor/EditorCropperContext'
 import { EditorPreviewContext, useEditorPreview } from '@contexts/editor/EditorPreviewContext'
-import { AspectRatioContext, useAspectRatio } from '@contexts/editor/AspectRatioContext'
+import { EditorToolsContext, useEditorTools } from '@contexts/editor/EditorToolsContext'
 import { EditorImageInput } from '@workbench/tools/EditorImageInput'
 import { EditorDimensionsInput } from './tools/EditorDimensionsInput'
 import { EditorPositionInput } from './tools/EditorPositionInput'
@@ -15,6 +15,7 @@ import { EditorCloseButton } from './tools/EditorCloseButton'
 import { EditorZoomOptions } from './tools/EditorZoomOptions'
 import { EditorCanvas } from './canvas/EditorCanvas'
 import css from './EditorWorkbench.module.scss'
+import { EditorRenderModeButton } from './tools/EditorRenderModeButton'
 
 // PROPS
 interface EditorWorkbenchProps {
@@ -31,7 +32,7 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
   const elements = useEditorElements()
   const preview = useEditorPreview()
   const cropper = useEditorCropper()
-  const ratio = useAspectRatio()
+  const tools = useEditorTools()
 
   // HANDLER
   const inputChangeHandler = (file: File): void => {
@@ -44,7 +45,7 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
       <EditorElementsContext.Provider value={elements}>
         <EditorPreviewContext.Provider value={preview}>
           <EditorCropperContext.Provider value={cropper}>
-            <AspectRatioContext.Provider value={ratio}>
+            <EditorToolsContext.Provider value={tools}>
 
               {(input.image !== null) && <EditorCloseButton className={css.close}/>}
 
@@ -52,6 +53,8 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
                 <EditorDimensionsInput className={css.tool}/>
                 <EditorPositionInput className={css.tool}/>
               </div>
+
+              <EditorRenderModeButton className={css.render}/>
 
               <div className={css.ratios}>
                 <AspectRatioOptions/>
@@ -66,7 +69,7 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
               {(input.image === null) && <EditorImageInput className={css.input} onChange={inputChangeHandler}/>}
               {(input.image !== null) && <EditorCanvas className={css.canvas}/>}
 
-            </AspectRatioContext.Provider>
+            </EditorToolsContext.Provider>
           </EditorCropperContext.Provider>
         </EditorPreviewContext.Provider>
       </EditorElementsContext.Provider>
