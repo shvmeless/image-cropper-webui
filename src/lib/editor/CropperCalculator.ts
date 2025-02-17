@@ -65,7 +65,7 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       cropper.width = width
 
-      if (cropper.width < 10) cropper.width = 10
+      if (cropper.width < 1) cropper.width = 1
       if (cropper.width > image.width) cropper.width = image.width
 
       cropper.x = previous.x - ((cropper.width - previous.width) / 2)
@@ -98,7 +98,7 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       cropper.height = height
 
-      if (cropper.height < 10) cropper.height = 10
+      if (cropper.height < 1) cropper.height = 1
       if (cropper.height > image.height) cropper.height = image.height
 
       cropper.y = previous.y - ((cropper.height - previous.height) / 2)
@@ -130,7 +130,7 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
       const previous = { ...cropper }
 
       if (y < 0) y = 0
-      if (y > previous.y + previous.height - 10) y = previous.y + previous.height - 10
+      if (y > previous.y + previous.height - 1) y = previous.y + previous.height - 1
 
       cropper.y = y
       cropper.height = previous.y + previous.height - cropper.y
@@ -164,7 +164,7 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       const previous = { ...cropper }
 
-      if (x < (previous.x + 10)) x = previous.x + 10
+      if (x < (previous.x + 1)) x = previous.x + 1
       if (x > (image.width)) x = image.width
 
       cropper.width = x - previous.x
@@ -196,7 +196,7 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       const previous = { ...cropper }
 
-      if (y < (previous.y + 10)) y = previous.y + 10
+      if (y < (previous.y + 1)) y = previous.y + 1
       if (y > image.height) y = image.height
 
       cropper.height = y - previous.y
@@ -228,7 +228,7 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
       const previous = { ...cropper }
 
       if (x < 0) x = 0
-      if (x > (previous.x + previous.width - 10)) x = previous.x + previous.width - 10
+      if (x > (previous.x + previous.width - 1)) x = previous.x + previous.width - 1
 
       cropper.x = x
       cropper.width = previous.width - (x - previous.x)
@@ -269,10 +269,10 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       const previous = { ...cropper }
 
-      if (position.x < (previous.x + 10)) position.x = previous.x + 10
+      if (position.x < (previous.x + 1)) position.x = previous.x + 1
       if (position.x > (image.width)) position.x = image.width
       if (position.y < 0) position.y = 0
-      if (position.y > (previous.y + previous.height - 10)) position.y = previous.y + previous.height - 10
+      if (position.y > (previous.y + previous.height - 1)) position.y = previous.y + previous.height - 1
 
       if (ratio === null) {
         cropper.y = position.y
@@ -302,9 +302,9 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       const previous = { ...cropper }
 
-      if (position.y < (previous.y + 10)) position.y = previous.y + 10
+      if (position.y < (previous.y + 1)) position.y = previous.y + 1
       if (position.y > image.height) position.y = image.height
-      if (position.x < (previous.x + 10)) position.x = previous.x + 10
+      if (position.x < (previous.x + 1)) position.x = previous.x + 1
       if (position.x > (image.width)) position.x = image.width
 
       if (ratio === null) {
@@ -332,10 +332,10 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       const previous = { ...cropper }
 
-      if (position.y < (previous.y + 10)) position.y = previous.y + 10
+      if (position.y < (previous.y + 1)) position.y = previous.y + 1
       if (position.y > image.height) position.y = image.height
       if (position.x < 0) position.x = 0
-      if (position.x > (previous.x + previous.width - 10)) position.x = previous.x + previous.width - 10
+      if (position.x > (previous.x + previous.width - 1)) position.x = previous.x + previous.width - 1
 
       if (ratio === null) {
         cropper.height = position.y - previous.y
@@ -366,9 +366,9 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
       const previous = { ...cropper }
 
       if (position.y < 0) position.y = 0
-      if (position.y > (previous.y + previous.height - 10)) position.y = previous.y + previous.height - 10
+      if (position.y > (previous.y + previous.height - 1)) position.y = previous.y + previous.height - 1
       if (position.x < 0) position.x = 0
-      if (position.x > (previous.x + previous.width - 10)) position.x = previous.x + previous.width - 10
+      if (position.x > (previous.x + previous.width - 1)) position.x = previous.x + previous.width - 1
 
       if (ratio === null) {
         cropper.y = position.y

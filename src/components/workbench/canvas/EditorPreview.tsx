@@ -1,10 +1,8 @@
 // IMPORTS
-import { type ReactNode, type WheelEvent, type MouseEvent, useContext, useEffect, useRef } from 'react'
+import { type ReactNode, useContext, useEffect, useRef } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
-import { EditorUtils } from '@lib/editor/EditorUtils'
 import { useClasses } from '@hooks/common/useClasses'
-import { useDragging } from '@hooks/useDragging'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { EditorElementsContext } from '@contexts/editor/EditorElementsContext'
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
@@ -28,9 +26,6 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
 
   // RENDER
   if (input.image === null) return null
-
-  // STATE
-  const dragging = useDragging()
 
   // ELEMENTS
   const imageRef = useRef<HTMLImageElement>(null)
@@ -73,51 +68,9 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
     imageRef.current.style.imageRendering = renderMode
   }, [tools.renderMode])
 
-  // HANDLER
-  const mouseDownHandler = (event: MouseEvent<HTMLDivElement>): void => {
-    if (!event.altKey) return
-    dragging.update((target, previous) => {
-
-      if (input.image === null) return
-      if (preview.values.current === null) return
-
-      const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
-      const result = calculator.setPosition({
-        x: target.clientX - (previous ?? event).clientX,
-        y: target.clientY - (previous ?? event).clientY,
-      })
-
-      preview.setValues(result)
-
-    })
-  }
-
-  // HANDLER
-  const onEditorWheel = (event: WheelEvent<HTMLDivElement>): void => {
-
-    if (event.deltaY === 0) return
-    if (!event.altKey) return
-
-    if (input.image === null) return
-    if (preview.values.current === null) return
-    if (elements.preview.current === null) return
-    if (elements.cropper.current === null) return
-
-    const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
-    const position = utils.relativeToPreview(event)
-
-    const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
-    const result = calculator.zoomAt(position, (event.deltaY < 0) ? 0.1 : -0.1)
-
-    preview.setValues(result)
-
-  }
-
   // RENDER
-  return <div className={useClasses(css.EditorPreview, props.className)}
-    ref={elements.preview}
-    onMouseDown={mouseDownHandler}
-    onWheel={onEditorWheel}
+  return <div ref={elements.preview}
+    className={useClasses(css.EditorPreview, props.className)}
   >
 
     <img ref={imageRef}
