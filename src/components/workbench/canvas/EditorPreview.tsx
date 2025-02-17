@@ -1,13 +1,13 @@
 // IMPORTS
-import { type MouseEvent, useContext, useEffect, type ReactNode, type WheelEvent } from 'react'
+import { type ReactNode, type WheelEvent, type MouseEvent, useContext, useEffect } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
-import { EditorConverter } from '@lib/editor/EditorConverter'
+import { EditorUtils } from '@lib/editor/EditorUtils'
 import { useClasses } from '@hooks/common/useClasses'
 import { useDragging } from '@hooks/useDragging'
-import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContext'
-import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
+import { EditorElementsContext } from '@contexts/editor/EditorElementsContext'
+import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { EditorCropper } from './EditorCropper'
 import css from './EditorPreview.module.scss'
 
@@ -21,7 +21,7 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
 
   // CONTEXT
   const input = useContext(EditorImageInputContext)
-  const references = useContext(EditorReferencesContext)
+  const elements = useContext(EditorElementsContext)
   const preview = useContext(EditorPreviewContext)
 
   // RENDER
@@ -34,11 +34,11 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
   useEffect(() => {
 
     const callback = (values: Dimensions & Position): void => {
-      if (references.preview.current === null) return
-      references.preview.current.style.width = `${values.width}px`
-      references.preview.current.style.height = `${values.height}px`
-      references.preview.current.style.left = `calc(50% - ${values.x}px)`
-      references.preview.current.style.top = `calc(50% - ${values.y}px)`
+      if (elements.preview.current === null) return
+      elements.preview.current.style.width = `${values.width}px`
+      elements.preview.current.style.height = `${values.height}px`
+      elements.preview.current.style.left = `calc(50% - ${values.x}px)`
+      elements.preview.current.style.top = `calc(50% - ${values.y}px)`
     }
 
     preview.subscriber.subscribe(callback)
@@ -88,11 +88,11 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
 
     if (input.image === null) return
     if (preview.values.current === null) return
-    if (references.preview.current === null) return
-    if (references.cropper.current === null) return
+    if (elements.preview.current === null) return
+    if (elements.cropper.current === null) return
 
-    const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
-    const position = converter.relativeToPreview(event)
+    const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+    const position = utils.relativeToPreview(event)
 
     const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
     const result = calculator.zoomAt(position, (event.deltaY < 0) ? 0.1 : -0.1)
@@ -103,7 +103,7 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
 
   // RENDER
   return <div className={useClasses(css.EditorPreview, props.className)}
-    ref={references.preview}
+    ref={elements.preview}
     onMouseDown={mouseDownHandler}
     onWheel={onEditorWheel}
   >

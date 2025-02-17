@@ -1,12 +1,12 @@
 // IMPORTS
-import { type MouseEvent, useContext, useEffect, type ReactNode } from 'react'
+import { type ReactNode, type MouseEvent, useContext, useEffect } from 'react'
 import { CropperCalculator } from '@lib/editor/CropperCalculator'
-import { EditorConverter } from '@lib/editor/EditorConverter'
 import type { Dimensions, Position } from '@lib/common/types'
+import { EditorUtils } from '@lib/editor/EditorUtils'
 import { useClasses } from '@hooks/common/useClasses'
 import { useDragging } from '@hooks/useDragging'
-import { EditorReferencesContext } from '@contexts/editor/EditorReferencesContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
+import { EditorElementsContext } from '@contexts/editor/EditorElementsContext'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
 import { AspectRatioContext } from '@contexts/editor/AspectRatioContext'
 import css from './EditorCropper.module.scss'
@@ -21,7 +21,7 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
 
   // CONTEXTS
   const input = useContext(EditorImageInputContext)
-  const references = useContext(EditorReferencesContext)
+  const elements = useContext(EditorElementsContext)
   const cropper = useContext(EditorCropperContext)
   const ratio = useContext(AspectRatioContext)
 
@@ -36,12 +36,12 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
 
     const callback = (values: Dimensions & Position): void => {
       if (input.image === null) return
-      if (references.cropper.current === null) return
+      if (elements.cropper.current === null) return
 
-      references.cropper.current.style.width = `${values.width / input.image.dimensions.width * 100}%`
-      references.cropper.current.style.height = `${values.height / input.image.dimensions.height * 100}%`
-      references.cropper.current.style.left = `${values.x / input.image.dimensions.width * 100}%`
-      references.cropper.current.style.top = `${values.y / input.image.dimensions.height * 100}%`
+      elements.cropper.current.style.width = `${values.width / input.image.dimensions.width * 100}%`
+      elements.cropper.current.style.height = `${values.height / input.image.dimensions.height * 100}%`
+      elements.cropper.current.style.left = `${values.x / input.image.dimensions.width * 100}%`
+      elements.cropper.current.style.top = `${values.y / input.image.dimensions.height * 100}%`
     }
 
     cropper.subscriber.subscribe(callback)
@@ -71,29 +71,26 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
     start.stopPropagation()
 
     if (input.image === null) return
-    if (references.cropper.current === null) return
-    if (references.preview.current === null) return
+    if (elements.cropper.current === null) return
+    if (elements.preview.current === null) return
 
-    const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
-    let diff = converter.relativeToCropper(start)
-    diff = converter.proportionalToImage(diff)
-
-    diff.x = Math.floor(diff.x)
-    diff.y = Math.floor(diff.y)
+    const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+    let diff = utils.relativeToCropper(start)
+    diff = utils.proportionalToImage(diff)
+    diff = utils.floor(diff)
 
     dragging.update((target) => {
 
       if (input.image === null) return
       if (cropper.values.current === null) return
-      if (references.preview.current === null) return
-      if (references.cropper.current === null) return
+      if (elements.preview.current === null) return
+      if (elements.cropper.current === null) return
 
-      const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
 
-      let position = converter.relativeToPreview(target)
-      position = converter.proportionalToImage(position)
-      position.x = Math.floor(position.x)
-      position.y = Math.floor(position.y)
+      let position = utils.relativeToPreview(target)
+      position = utils.proportionalToImage(position)
+      position = utils.round(position)
 
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
       const result = calculator.setPosition({
@@ -115,23 +112,17 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
 
       if (input.image === null) return
       if (cropper.values.current === null) return
-      if (references.preview.current === null) return
-      if (references.cropper.current === null) return
+      if (elements.preview.current === null) return
+      if (elements.cropper.current === null) return
 
-      const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
 
-      let position = converter.relativeToPreview(target)
-      position = converter.proportionalToImage(position)
-      position.x = Math.round(position.x)
-      position.y = Math.round(position.y)
+      let position = utils.relativeToPreview(target)
+      position = utils.proportionalToImage(position)
+      position = utils.round(position)
 
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      let result = { ...cropper.values.current }
-
-      if (side === 'top') result = calculator.moveTopSide(position.y, ratio.values)
-      else if (side === 'right') result = calculator.moveRightSide(position.x, ratio.values)
-      else if (side === 'bottom') result = calculator.moveBottomSide(position.y, ratio.values)
-      else result = calculator.moveLeftSide(position.x, ratio.values)
+      const result = calculator.moveSide(side, position, ratio.values)
 
       cropper.setValues(result)
 
@@ -147,23 +138,17 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
 
       if (input.image === null) return
       if (cropper.values.current === null) return
-      if (references.preview.current === null) return
-      if (references.cropper.current === null) return
+      if (elements.preview.current === null) return
+      if (elements.cropper.current === null) return
 
-      const converter = EditorConverter(input.image.dimensions, references.preview.current, references.cropper.current)
+      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
 
-      let position = converter.relativeToPreview(target)
-      position = converter.proportionalToImage(position)
-      position.x = Math.round(position.x)
-      position.y = Math.round(position.y)
+      let position = utils.relativeToPreview(target)
+      position = utils.proportionalToImage(position)
+      position = utils.round(position)
 
       const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      let result = { ...cropper.values.current }
-
-      if (corner === 'top_right') result = calculator.moveTopRightCorner(position, ratio.values)
-      else if (corner === 'bottom_right') result = calculator.moveBottomRightCorner(position, ratio.values)
-      else if (corner === 'bottom_left') result = calculator.moveBottomLeftCorner(position, ratio.values)
-      else result = calculator.moveTopLeftCorner(position, ratio.values)
+      const result = calculator.moveCorner(corner, position, ratio.values)
 
       cropper.setValues(result)
 
@@ -172,7 +157,7 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
 
   // RENDER
   return <div className={useClasses(css.EditorCropper, props.className)}
-    ref={references.cropper}
+    ref={elements.cropper}
     onMouseDown={cropperClickHandler}
   >
 

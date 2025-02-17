@@ -257,6 +257,14 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
     },
 
     // FUNCTION
+    moveSide (side: 'top' | 'right' | 'bottom' | 'left', position: Position, ratio: Dimensions | null): Dimensions & Position {
+      if (side === 'top') return this.moveTopSide(position.y, ratio)
+      if (side === 'right') return this.moveRightSide(position.x, ratio)
+      if (side === 'bottom') return this.moveBottomSide(position.y, ratio)
+      return this.moveLeftSide(position.x, ratio)
+    },
+
+    // FUNCTION
     moveTopRightCorner (position: Position, ratio: Dimensions | null): Dimensions & Position {
 
       const previous = { ...cropper }
@@ -386,6 +394,14 @@ export function CropperCalculator (image: Dimensions, cropper: Dimensions & Posi
 
       return cropper
 
+    },
+
+    // FUNCTION
+    moveCorner (corner: 'top_left' | 'top_right' | 'bottom_right' | 'bottom_left', position: Position, ratio: Dimensions | null): Dimensions & Position {
+      if (corner === 'top_right') return this.moveTopRightCorner(position, ratio)
+      if (corner === 'bottom_right') return this.moveBottomRightCorner(position, ratio)
+      if (corner === 'bottom_left') return this.moveBottomLeftCorner(position, ratio)
+      return this.moveTopLeftCorner(position, ratio)
     },
 
   }

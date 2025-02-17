@@ -2,13 +2,13 @@
 import { createContext, type RefObject, useRef } from 'react'
 
 // TYPE
-export interface EditorReferencesHook {
+export interface EditorElementsHook {
   preview: RefObject<HTMLDivElement>
   cropper: RefObject<HTMLDivElement>
 }
 
 // HOOK
-export function useEditorReferences (): EditorReferencesHook {
+export function useEditorElements (): EditorElementsHook {
 
   // PROPERTIES
   const preview = useRef<HTMLDivElement>(null)
@@ -21,4 +21,4 @@ export function useEditorReferences (): EditorReferencesHook {
 
 // CONTEXT
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- ignore
-export const EditorReferencesContext = createContext<EditorReferencesHook>({} as EditorReferencesHook)
+export const EditorElementsContext = createContext<EditorElementsHook>({} as EditorElementsHook)

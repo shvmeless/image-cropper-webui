@@ -1,7 +1,7 @@
 // IMPORTS
 import type { ReactNode } from 'react'
 import { useClasses } from '@hooks/common/useClasses'
-import { EditorReferencesContext, useEditorReferences } from '@contexts/editor/EditorReferencesContext'
+import { EditorElementsContext, useEditorElements } from '@contexts/editor/EditorElementsContext'
 import { EditorImageInputContext, useEditorImageInput } from '@contexts/editor/EditorImageInputContext'
 import { EditorCropperContext, useEditorCropper } from '@contexts/editor/EditorCropperContext'
 import { EditorPreviewContext, useEditorPreview } from '@contexts/editor/EditorPreviewContext'
@@ -28,7 +28,7 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
   const input = useEditorImageInput()
 
   // STATE
-  const references = useEditorReferences()
+  const elements = useEditorElements()
   const preview = useEditorPreview()
   const cropper = useEditorCropper()
   const ratio = useAspectRatio()
@@ -41,7 +41,7 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
   // RENDER
   return <div className={useClasses(css.EditorWorkbench, props.className)}>
     <EditorImageInputContext.Provider value={input}>
-      <EditorReferencesContext.Provider value={references}>
+      <EditorElementsContext.Provider value={elements}>
         <EditorPreviewContext.Provider value={preview}>
           <EditorCropperContext.Provider value={cropper}>
             <AspectRatioContext.Provider value={ratio}>
@@ -69,7 +69,7 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
             </AspectRatioContext.Provider>
           </EditorCropperContext.Provider>
         </EditorPreviewContext.Provider>
-      </EditorReferencesContext.Provider>
+      </EditorElementsContext.Provider>
     </EditorImageInputContext.Provider>
   </div>
 
