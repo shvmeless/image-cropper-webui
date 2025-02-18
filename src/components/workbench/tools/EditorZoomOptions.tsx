@@ -45,10 +45,10 @@ export function EditorZoomOptions (): ReactNode {
     if (input.image === null) return
     if (preview.values.current === null) return
 
-    const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
-    const result = calculator.zoom((zoom === 'IN') ? 0.1 : -0.1)
+    const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
+    calculator.zoom((zoom === 'IN') ? 0.1 : -0.1)
 
-    preview.setValues(result)
+    preview.setValues(calculator.preview)
 
   }
 

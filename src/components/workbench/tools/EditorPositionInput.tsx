@@ -65,13 +65,11 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
 
     value = Math.round(value)
 
-    const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-    let result = { ...cropper.values.current }
+    const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+    if (property === 'x') calculator.setX(value)
+    else calculator.setY(value)
 
-    if (property === 'x') result = calculator.setX(value)
-    else result = calculator.setY(value)
-
-    cropper.setValues(result)
+    cropper.setValues(calculator.cropper)
 
   }
 

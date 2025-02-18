@@ -1,6 +1,6 @@
 // IMPORTS
 import { type ReactNode, type MouseEvent, useContext, useEffect } from 'react'
-import { CropperCalculator } from '@lib/editor/CropperCalculator'
+import { type CropperCorner, type CropperSide, CropperCalculator } from '@lib/editor/CropperCalculator'
 import type { Dimensions, Position } from '@lib/common/types'
 import { EditorUtils } from '@lib/editor/EditorUtils'
 import { useClasses } from '@hooks/common/useClasses'
@@ -57,10 +57,10 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
     if (input.image === null) return
     if (cropper.values.current === null) return
 
-    const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-    const result = calculator.reset()
+    const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+    calculator.reset()
 
-    cropper.setValues(result)
+    cropper.setValues(calculator.cropper)
 
   }, [input.image])
 
@@ -92,19 +92,19 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       position = utils.proportionalToImage(position)
       position = utils.round(position)
 
-      const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      const result = calculator.setPosition({
+      const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+      calculator.setPosition({
         x: position.x - diff.x,
         y: position.y - diff.y,
       })
 
-      cropper.setValues(result)
+      cropper.setValues(calculator.cropper)
 
     })
   }
 
   // HANDLER
-  const cropperSideClickHandler = (event: MouseEvent<HTMLDivElement>, side: 'top' | 'right' | 'bottom' | 'left'): void => {
+  const cropperSideClickHandler = (event: MouseEvent<HTMLDivElement>, side: CropperSide): void => {
     if (event.button !== 0) return
     if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return
     event.stopPropagation()
@@ -121,16 +121,16 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       position = utils.proportionalToImage(position)
       position = utils.round(position)
 
-      const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      const result = calculator.moveSide(side, position, tools.aspectRatio)
+      const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+      calculator.setSide(side, position, tools.aspectRatio)
 
-      cropper.setValues(result)
+      cropper.setValues(calculator.cropper)
 
     })
   }
 
   // HANDLER
-  const cropperCornerClickHandler = (event: MouseEvent<HTMLDivElement>, corner: 'top_left' | 'top_right' | 'bottom_right' | 'bottom_left'): void => {
+  const cropperCornerClickHandler = (event: MouseEvent<HTMLDivElement>, corner: CropperCorner): void => {
     if (event.button !== 0) return
     if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return
     event.stopPropagation()
@@ -147,10 +147,10 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       position = utils.proportionalToImage(position)
       position = utils.round(position)
 
-      const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-      const result = calculator.moveCorner(corner, position, tools.aspectRatio)
+      const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+      calculator.setCorner(corner, position, tools.aspectRatio)
 
-      cropper.setValues(result)
+      cropper.setValues(calculator.cropper)
 
     })
   }

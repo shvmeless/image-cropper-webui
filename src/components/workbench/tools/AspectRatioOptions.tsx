@@ -57,12 +57,11 @@ export function AspectRatioOptions (): ReactNode {
     if (cropper.values.current === null) return
     const { width, height } = cropper.values.current
 
-    const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-    const result = (width >= height)
-      ? calculator.setWidth(width, newRatio)
-      : calculator.setHeight(height, newRatio)
+    const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+    if (width >= height) calculator.setWidth(width, newRatio)
+    else calculator.setHeight(height, newRatio)
 
-    cropper.setValues(result)
+    cropper.setValues(calculator.cropper)
 
   }
 

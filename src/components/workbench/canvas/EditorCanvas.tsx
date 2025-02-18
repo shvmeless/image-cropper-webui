@@ -61,13 +61,13 @@ export function EditorCanvas (props: EditorCanvasProps): ReactNode {
       if (input.image === null) return
       if (preview.values.current === null) return
 
-      const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
-      const result = calculator.setPosition({
+      const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
+      calculator.move({
         x: target.clientX - (previous ?? event).clientX,
         y: target.clientY - (previous ?? event).clientY,
       })
 
-      preview.setValues(result)
+      preview.setValues(calculator.preview)
 
     })
   }
@@ -86,10 +86,10 @@ export function EditorCanvas (props: EditorCanvasProps): ReactNode {
     const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
     const position = utils.relativeToPreview(event)
 
-    const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
-    const result = calculator.zoomAt(position, (event.deltaY < 0) ? 0.1 : -0.1)
+    const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
+    calculator.zoomAt(position, (event.deltaY < 0) ? 0.1 : -0.1)
 
-    preview.setValues(result)
+    preview.setValues(calculator.preview)
 
   }
 

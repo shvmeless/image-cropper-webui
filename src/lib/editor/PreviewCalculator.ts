@@ -1,75 +1,62 @@
 // IMPORTS
 import type { Dimensions, Position } from '@lib/common/types'
 
-// MODULE
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- ignore
-export function PreviewCalculator (image: Dimensions, preview: Dimensions & Position) {
-  image = { ...image }
-  preview = { ...preview }
-  return {
+// CLASS
+export class PreviewCalculator {
 
-    // FUNCTION
-    reset (): Dimensions & Position {
+  // PROPERTIES
+  private readonly image: Dimensions
+  public readonly preview: Dimensions & Position
 
-      preview.width = image.width
-      preview.height = image.height
-      preview.x = image.width / 2
-      preview.y = image.height / 2
+  // CONSTRUCTOR
+  constructor (image: Dimensions, preview: Dimensions & Position) {
+    this.image = { ...image }
+    this.preview = { ...preview }
+  }
 
-      return preview
+  // METHOD
+  public reset (): void {
+    this.preview.width = this.image.width
+    this.preview.height = this.image.height
+    this.preview.x = this.image.width / 2
+    this.preview.y = this.image.height / 2
+  }
 
-    },
+  // METHOD
+  public move (vector: Position): void {
+    const previous = { ...this.preview }
 
-    // FUNCTION
-    setPosition (vector: Position): Dimensions & Position {
+    this.preview.x = previous.x - vector.x
+    this.preview.y = previous.y - vector.y
+  }
 
-      const previous = { ...preview }
+  // METHOD
+  public zoom (percent: number): void {
+    const previous = { ...this.preview }
 
-      preview.x = previous.x - vector.x
-      preview.y = previous.y - vector.y
+    const multiplier = (previous.width / this.image.width) + percent
 
-      return preview
+    this.preview.width = this.image.width * multiplier
+    this.preview.height = this.image.height * this.preview.width / this.image.width
+    this.preview.x = previous.x - ((previous.width - this.preview.width) / 2)
+    this.preview.y = previous.y - ((previous.height - this.preview.height) / 2)
+  }
 
-    },
+  // METHOD
+  public zoomAt (target: Position, percent: number): void {
+    const previous = { ...this.preview }
 
-    // FUNCTION
-    zoom (percent: number): Dimensions & Position {
+    const multiplier = (previous.width / this.image.width) + percent
 
-      const previous = { ...preview }
+    this.preview.width = this.image.width * multiplier
+    this.preview.height = this.image.height * this.preview.width / this.image.width
 
-      const multiplier = (previous.width / image.width) + percent
+    const pos2 = {
+      x: target.x * this.preview.width / previous.width,
+      y: target.y * this.preview.height / previous.height,
+    }
 
-      preview.width = image.width * multiplier
-      preview.height = image.height * preview.width / image.width
-
-      preview.x = previous.x - ((previous.width - preview.width) / 2)
-      preview.y = previous.y - ((previous.height - preview.height) / 2)
-
-      return preview
-
-    },
-
-    // FUNCTION
-    zoomAt (target: Position, percent: number): Dimensions & Position {
-
-      const previous = { ...preview }
-
-      const multiplier = (previous.width / image.width) + percent
-
-      preview.width = image.width * multiplier
-      preview.height = image.height * preview.width / image.width
-
-      const pos2 = {
-        x: target.x * preview.width / previous.width,
-        y: target.y * preview.height / previous.height,
-      }
-
-      preview.x = previous.x - (target.x - pos2.x)
-      preview.y = previous.y - (target.y - pos2.y)
-
-      return preview
-
-    },
-
+    this.preview.x = previous.x - (target.x - pos2.x)
+    this.preview.y = previous.y - (target.y - pos2.y)
   }
 }

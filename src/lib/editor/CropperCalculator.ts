@@ -1,408 +1,381 @@
 // IMPORTS
 import type { Dimensions, Position } from '@lib/common/types'
 
-// MODULE
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- ignore
-export function CropperCalculator (image: Dimensions, cropper: Dimensions & Position) {
-  image = { ...image }
-  cropper = { ...cropper }
-  return {
+// TYPES
+export type CropperSide = 'top' | 'right' | 'bottom' | 'left'
+export type CropperCorner = 'top_right' | 'bottom_right' | 'bottom_left' | 'top_left'
 
-    // FUNCTION
-    reset (): Dimensions & Position {
+// CLASS
+export class CropperCalculator {
 
-      cropper.width = image.width
-      cropper.height = image.height
-      cropper.x = 0
-      cropper.y = 0
+  // PROPERTIES
+  private readonly image: Dimensions
+  public cropper: Dimensions & Position
 
-      return cropper
+  // CONSTRUCTOR
+  constructor (image: Dimensions, cropper: Dimensions & Position) {
+    this.image = { ...image }
+    this.cropper = { ...cropper }
+  }
 
-    },
+  // METHOD
+  public reset (): void {
+    this.cropper.width = this.image.width
+    this.cropper.height = this.image.height
+    this.cropper.x = 0
+    this.cropper.y = 0
+  }
 
-    // FUNCTION
-    setX (x: number): Dimensions & Position {
+  // METHOD
+  public setX (x: number): void {
+    const previous = { ...this.cropper }
 
-      const previous = { ...cropper }
+    this.cropper.x = x
 
-      cropper.x = x
+    if (this.cropper.x < 0) this.cropper.x = 0
+    if (this.cropper.x > (this.image.width - previous.width)) this.cropper.x = this.image.width - previous.width
+  }
 
-      if (cropper.x < 0) cropper.x = 0
-      if (cropper.x > (image.width - previous.width)) cropper.x = image.width - previous.width
+  // METHOD
+  public setY (y: number): void {
+    const previous = { ...this.cropper }
 
-      return cropper
+    this.cropper.y = y
 
-    },
+    if (this.cropper.y < 0) this.cropper.y = 0
+    if ((this.cropper.y + previous.height) > this.image.height) this.cropper.y = this.image.height - previous.height
+  }
 
-    // FUNCTION
-    setY (y: number): Dimensions & Position {
+  // METHOD
+  public setPosition (position: Position): void {
+    this.setX(position.x)
+    this.setY(position.y)
+  }
 
-      const previous = { ...cropper }
+  // METHOD
+  public setWidth (width: number, ratio: Dimensions | null): void {
 
-      cropper.y = y
+    const previous = { ...this.cropper }
 
-      if (cropper.y < 0) cropper.y = 0
-      if ((cropper.y + previous.height) > image.height) cropper.y = image.height - previous.height
+    this.cropper.width = width
 
-      return cropper
+    if (this.cropper.width < 1) this.cropper.width = 1
+    if (this.cropper.width > this.image.width) this.cropper.width = this.image.width
 
-    },
+    this.cropper.x = previous.x - ((this.cropper.width - previous.width) / 2)
 
-    // FUNCTION
-    setPosition (position: Position): Dimensions & Position {
+    if (this.cropper.x < 0) this.cropper.x = 0
+    if ((this.cropper.width + this.cropper.x) > this.image.width) this.cropper.x = this.image.width - this.cropper.width
 
-      cropper = this.setX(position.x)
-      cropper = this.setY(position.y)
+    if (ratio === null) return
 
-      return cropper
+    this.cropper.height = this.cropper.width * ratio.height / ratio.width
+    this.cropper.y = previous.y - ((this.cropper.height - previous.height) / 2)
 
-    },
+    if (this.cropper.height > this.image.height) {
+      this.cropper.height = this.image.height
+      this.cropper.width = this.cropper.height * ratio.width / ratio.height
+      this.cropper.x = previous.x - ((this.cropper.width - previous.width) / 2)
+    }
 
-    // FUNCTION
-    setWidth (width: number, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      cropper.width = width
-
-      if (cropper.width < 1) cropper.width = 1
-      if (cropper.width > image.width) cropper.width = image.width
-
-      cropper.x = previous.x - ((cropper.width - previous.width) / 2)
-
-      if (cropper.x < 0) cropper.x = 0
-      if ((cropper.width + cropper.x) > image.width) cropper.x = image.width - cropper.width
-
-      if (ratio === null) return cropper
-
-      cropper.height = cropper.width * ratio.height / ratio.width
-      cropper.y = previous.y - ((cropper.height - previous.height) / 2)
-
-      if (cropper.height > image.height) {
-        cropper.height = image.height
-        cropper.width = cropper.height * ratio.width / ratio.height
-        cropper.x = previous.x - ((cropper.width - previous.width) / 2)
-      }
-
-      if (cropper.y < 0) cropper.y = 0
-      if ((cropper.y + cropper.height) > image.height) cropper.y = image.height - cropper.height
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    setHeight (height: number, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      cropper.height = height
-
-      if (cropper.height < 1) cropper.height = 1
-      if (cropper.height > image.height) cropper.height = image.height
-
-      cropper.y = previous.y - ((cropper.height - previous.height) / 2)
-
-      if (cropper.y < 0) cropper.y = 0
-      if ((cropper.height + cropper.y) > image.height) cropper.y = image.height - cropper.height
-
-      if (ratio === null) return cropper
-
-      cropper.width = cropper.height * ratio.width / ratio.height
-      cropper.x = previous.x - ((cropper.width - previous.width) / 2)
-
-      if (cropper.width > image.width) {
-        cropper.width = image.width
-        cropper.height = cropper.width * ratio.height / ratio.width
-        cropper.y = previous.y - ((cropper.height - previous.height) / 2)
-      }
-
-      if (cropper.x < 0) cropper.x = 0
-      if ((cropper.x + cropper.width) > image.width) cropper.x = image.width - cropper.width
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveTopSide (y: number, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (y < 0) y = 0
-      if (y > previous.y + previous.height - 1) y = previous.y + previous.height - 1
-
-      cropper.y = y
-      cropper.height = previous.y + previous.height - cropper.y
-
-      if (ratio === null) return cropper
-
-      if ((cropper.y + cropper.height) > image.height) cropper.height = image.height - cropper.y
-      cropper.width = cropper.height * ratio.width / ratio.height
-      cropper.x = previous.x - ((cropper.width - previous.width) / 2)
-
-      if (cropper.x < 0) {
-        cropper.width = cropper.width + (cropper.x * 2)
-        cropper.x = 0
-        cropper.height = cropper.width * ratio.height / ratio.width
-        cropper.y = previous.y + previous.height - cropper.height
-      }
-
-      if ((cropper.x + cropper.width) > image.width) {
-        cropper.width = cropper.width - ((cropper.x + cropper.width - image.width) * 2)
-        cropper.x = image.width - cropper.width
-        cropper.height = cropper.width * ratio.height / ratio.width
-        cropper.y = previous.y + previous.height - cropper.height
-      }
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveRightSide (x: number, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (x < (previous.x + 1)) x = previous.x + 1
-      if (x > (image.width)) x = image.width
-
-      cropper.width = x - previous.x
-
-      if (ratio === null) return cropper
-
-      if ((cropper.x + cropper.width) > image.width) cropper.width = image.width - cropper.x
-      cropper.height = cropper.width * ratio.height / ratio.width
-      cropper.y = previous.y + ((previous.height - cropper.height) / 2)
-
-      if (cropper.y < 0) {
-        cropper.height = cropper.height + (cropper.y * 2)
-        cropper.y = 0
-        cropper.width = cropper.height * ratio.width / ratio.height
-      }
-
-      if ((cropper.y + cropper.height) > image.height) {
-        cropper.height = cropper.height - ((cropper.y + cropper.height - image.height) * 2)
-        cropper.y = image.height - cropper.height
-        cropper.width = cropper.height * ratio.width / ratio.height
-      }
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveBottomSide (y: number, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (y < (previous.y + 1)) y = previous.y + 1
-      if (y > image.height) y = image.height
-
-      cropper.height = y - previous.y
-
-      if (ratio === null) return cropper
-
-      cropper.width = cropper.height * ratio.width / ratio.height
-      cropper.x = previous.x - ((cropper.width - previous.width) / 2)
-
-      if (cropper.x < 0) {
-        cropper.width = cropper.width + (cropper.x * 2)
-        cropper.x = 0
-        cropper.height = cropper.width * ratio.height / ratio.width
-      }
-
-      if ((cropper.x + cropper.width) > image.width) {
-        cropper.width = cropper.width - ((cropper.x + cropper.width - image.width) * 2)
-        cropper.x = image.width - cropper.width
-        cropper.height = cropper.width * ratio.height / ratio.width
-      }
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveLeftSide (x: number, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (x < 0) x = 0
-      if (x > (previous.x + previous.width - 1)) x = previous.x + previous.width - 1
-
-      cropper.x = x
-      cropper.width = previous.width - (x - previous.x)
-
-      if (ratio === null) return cropper
-
-      cropper.height = cropper.width * ratio.height / ratio.width
-      cropper.y = previous.y + ((previous.height - cropper.height) / 2)
-
-      if (cropper.y < 0) {
-        cropper.height = cropper.height + (cropper.y * 2)
-        cropper.y = 0
-        cropper.width = cropper.height * ratio.width / ratio.height
-        cropper.x = (previous.x + previous.width) - cropper.width
-      }
-
-      if ((cropper.y + cropper.height) > image.height) {
-        cropper.height = cropper.height - ((cropper.y + cropper.height - image.height) * 2)
-        cropper.y = image.height - cropper.height
-        cropper.width = cropper.height * ratio.width / ratio.height
-        cropper.x = (previous.x + previous.width) - cropper.width
-      }
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveSide (side: 'top' | 'right' | 'bottom' | 'left', position: Position, ratio: Dimensions | null): Dimensions & Position {
-      if (side === 'top') return this.moveTopSide(position.y, ratio)
-      if (side === 'right') return this.moveRightSide(position.x, ratio)
-      if (side === 'bottom') return this.moveBottomSide(position.y, ratio)
-      return this.moveLeftSide(position.x, ratio)
-    },
-
-    // FUNCTION
-    moveTopRightCorner (position: Position, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (position.x < (previous.x + 1)) position.x = previous.x + 1
-      if (position.x > (image.width)) position.x = image.width
-      if (position.y < 0) position.y = 0
-      if (position.y > (previous.y + previous.height - 1)) position.y = previous.y + previous.height - 1
-
-      if (ratio === null) {
-        cropper.y = position.y
-        cropper.height = previous.y + previous.height - position.y
-        cropper.width = position.x - previous.x
-        return cropper
-      }
-
-      cropper.y = position.y
-      cropper.height = previous.y + previous.height - position.y
-      cropper.width = cropper.height * ratio.width / ratio.height
-
-      if ((cropper.x + cropper.width) <= image.width) return cropper
-
-      cropper = { ...previous }
-
-      cropper.width = image.width - cropper.x
-      cropper.height = cropper.width * ratio.height / ratio.width
-      cropper.y = previous.y - (cropper.height - previous.height)
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveBottomRightCorner (position: Position, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (position.y < (previous.y + 1)) position.y = previous.y + 1
-      if (position.y > image.height) position.y = image.height
-      if (position.x < (previous.x + 1)) position.x = previous.x + 1
-      if (position.x > (image.width)) position.x = image.width
-
-      if (ratio === null) {
-        cropper.height = position.y - previous.y
-        cropper.width = position.x - previous.x
-        return cropper
-      }
-
-      cropper.height = position.y - previous.y
-      cropper.width = cropper.height * ratio.width / ratio.height
-
-      if ((cropper.x + cropper.width) <= image.width) return cropper
-
-      cropper = { ...previous }
-
-      cropper.width = image.width - cropper.x
-      cropper.height = cropper.width * ratio.height / ratio.width
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveBottomLeftCorner (position: Position, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (position.y < (previous.y + 1)) position.y = previous.y + 1
-      if (position.y > image.height) position.y = image.height
-      if (position.x < 0) position.x = 0
-      if (position.x > (previous.x + previous.width - 1)) position.x = previous.x + previous.width - 1
-
-      if (ratio === null) {
-        cropper.height = position.y - previous.y
-        cropper.x = position.x
-        cropper.width = previous.width - (position.x - previous.x)
-        return cropper
-      }
-
-      cropper.height = position.y - previous.y
-      cropper.width = cropper.height * ratio.width / ratio.height
-      cropper.x = previous.x - (cropper.width - previous.width)
-
-      if (cropper.x >= 0) return cropper
-
-      cropper = { ...previous }
-
-      cropper.width = previous.x + previous.width
-      cropper.x = 0
-      cropper.height = cropper.width * ratio.height / ratio.width
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveTopLeftCorner (position: Position, ratio: Dimensions | null): Dimensions & Position {
-
-      const previous = { ...cropper }
-
-      if (position.y < 0) position.y = 0
-      if (position.y > (previous.y + previous.height - 1)) position.y = previous.y + previous.height - 1
-      if (position.x < 0) position.x = 0
-      if (position.x > (previous.x + previous.width - 1)) position.x = previous.x + previous.width - 1
-
-      if (ratio === null) {
-        cropper.y = position.y
-        cropper.height = previous.y + previous.height - position.y
-        cropper.x = position.x
-        cropper.width = previous.width - (position.x - previous.x)
-        return cropper
-      }
-
-      cropper.y = position.y
-      cropper.height = previous.y + previous.height - position.y
-      cropper.width = cropper.height * ratio.width / ratio.height
-      cropper.x = previous.x - (cropper.width - previous.width)
-
-      if (cropper.x >= 0) return cropper
-
-      cropper = { ...previous }
-
-      cropper.x = 0
-      cropper.width = previous.x + previous.width
-      cropper.height = cropper.width * ratio.height / ratio.width
-      cropper.y = previous.y - (cropper.height - previous.height)
-
-      return cropper
-
-    },
-
-    // FUNCTION
-    moveCorner (corner: 'top_left' | 'top_right' | 'bottom_right' | 'bottom_left', position: Position, ratio: Dimensions | null): Dimensions & Position {
-      if (corner === 'top_right') return this.moveTopRightCorner(position, ratio)
-      if (corner === 'bottom_right') return this.moveBottomRightCorner(position, ratio)
-      if (corner === 'bottom_left') return this.moveBottomLeftCorner(position, ratio)
-      return this.moveTopLeftCorner(position, ratio)
-    },
+    if (this.cropper.y < 0) this.cropper.y = 0
+    if ((this.cropper.y + this.cropper.height) > this.image.height) this.cropper.y = this.image.height - this.cropper.height
 
   }
+
+  // METHOD
+  public setHeight (height: number, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    this.cropper.height = height
+
+    if (this.cropper.height < 1) this.cropper.height = 1
+    if (this.cropper.height > this.image.height) this.cropper.height = this.image.height
+
+    this.cropper.y = previous.y - ((this.cropper.height - previous.height) / 2)
+
+    if (this.cropper.y < 0) this.cropper.y = 0
+    if ((this.cropper.height + this.cropper.y) > this.image.height) this.cropper.y = this.image.height - this.cropper.height
+
+    if (ratio === null) return
+
+    this.cropper.width = this.cropper.height * ratio.width / ratio.height
+    this.cropper.x = previous.x - ((this.cropper.width - previous.width) / 2)
+
+    if (this.cropper.width > this.image.width) {
+      this.cropper.width = this.image.width
+      this.cropper.height = this.cropper.width * ratio.height / ratio.width
+      this.cropper.y = previous.y - ((this.cropper.height - previous.height) / 2)
+    }
+
+    if (this.cropper.x < 0) this.cropper.x = 0
+    if ((this.cropper.x + this.cropper.width) > this.image.width) this.cropper.x = this.image.width - this.cropper.width
+
+  }
+
+  // METHOD
+  private setTopSide (y: number, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (y < 0) y = 0
+    if (y > previous.y + previous.height - 1) y = previous.y + previous.height - 1
+
+    this.cropper.y = y
+    this.cropper.height = previous.y + previous.height - this.cropper.y
+
+    if (ratio === null) return
+
+    if ((this.cropper.y + this.cropper.height) > this.image.height) this.cropper.height = this.image.height - this.cropper.y
+    this.cropper.width = this.cropper.height * ratio.width / ratio.height
+    this.cropper.x = previous.x - ((this.cropper.width - previous.width) / 2)
+
+    if (this.cropper.x < 0) {
+      this.cropper.width = this.cropper.width + (this.cropper.x * 2)
+      this.cropper.x = 0
+      this.cropper.height = this.cropper.width * ratio.height / ratio.width
+      this.cropper.y = previous.y + previous.height - this.cropper.height
+    }
+
+    if ((this.cropper.x + this.cropper.width) > this.image.width) {
+      this.cropper.width = this.cropper.width - ((this.cropper.x + this.cropper.width - this.image.width) * 2)
+      this.cropper.x = this.image.width - this.cropper.width
+      this.cropper.height = this.cropper.width * ratio.height / ratio.width
+      this.cropper.y = previous.y + previous.height - this.cropper.height
+    }
+
+  }
+
+  // METHOD
+  private setRightSide (x: number, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (x < (previous.x + 1)) x = previous.x + 1
+    if (x > (this.image.width)) x = this.image.width
+
+    this.cropper.width = x - previous.x
+
+    if (ratio === null) return
+
+    if ((this.cropper.x + this.cropper.width) > this.image.width) this.cropper.width = this.image.width - this.cropper.x
+    this.cropper.height = this.cropper.width * ratio.height / ratio.width
+    this.cropper.y = previous.y + ((previous.height - this.cropper.height) / 2)
+
+    if (this.cropper.y < 0) {
+      this.cropper.height = this.cropper.height + (this.cropper.y * 2)
+      this.cropper.y = 0
+      this.cropper.width = this.cropper.height * ratio.width / ratio.height
+    }
+
+    if ((this.cropper.y + this.cropper.height) > this.image.height) {
+      this.cropper.height = this.cropper.height - ((this.cropper.y + this.cropper.height - this.image.height) * 2)
+      this.cropper.y = this.image.height - this.cropper.height
+      this.cropper.width = this.cropper.height * ratio.width / ratio.height
+    }
+
+  }
+
+  // METHOD
+  private setBottomSide (y: number, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (y < (previous.y + 1)) y = previous.y + 1
+    if (y > this.image.height) y = this.image.height
+
+    this.cropper.height = y - previous.y
+
+    if (ratio === null) return
+
+    this.cropper.width = this.cropper.height * ratio.width / ratio.height
+    this.cropper.x = previous.x - ((this.cropper.width - previous.width) / 2)
+
+    if (this.cropper.x < 0) {
+      this.cropper.width = this.cropper.width + (this.cropper.x * 2)
+      this.cropper.x = 0
+      this.cropper.height = this.cropper.width * ratio.height / ratio.width
+    }
+
+    if ((this.cropper.x + this.cropper.width) > this.image.width) {
+      this.cropper.width = this.cropper.width - ((this.cropper.x + this.cropper.width - this.image.width) * 2)
+      this.cropper.x = this.image.width - this.cropper.width
+      this.cropper.height = this.cropper.width * ratio.height / ratio.width
+    }
+
+  }
+
+  // METHOD
+  private setLeftSide (x: number, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (x < 0) x = 0
+    if (x > (previous.x + previous.width - 1)) x = previous.x + previous.width - 1
+
+    this.cropper.x = x
+    this.cropper.width = previous.width - (x - previous.x)
+
+    if (ratio === null) return
+
+    this.cropper.height = this.cropper.width * ratio.height / ratio.width
+    this.cropper.y = previous.y + ((previous.height - this.cropper.height) / 2)
+
+    if (this.cropper.y < 0) {
+      this.cropper.height = this.cropper.height + (this.cropper.y * 2)
+      this.cropper.y = 0
+      this.cropper.width = this.cropper.height * ratio.width / ratio.height
+      this.cropper.x = (previous.x + previous.width) - this.cropper.width
+    }
+
+    if ((this.cropper.y + this.cropper.height) > this.image.height) {
+      this.cropper.height = this.cropper.height - ((this.cropper.y + this.cropper.height - this.image.height) * 2)
+      this.cropper.y = this.image.height - this.cropper.height
+      this.cropper.width = this.cropper.height * ratio.width / ratio.height
+      this.cropper.x = (previous.x + previous.width) - this.cropper.width
+    }
+
+  }
+
+  // METHOD
+  public setSide (side: CropperSide, position: Position, ratio: Dimensions | null): void {
+    if (side === 'top') this.setTopSide(position.y, ratio)
+    else if (side === 'right') this.setRightSide(position.x, ratio)
+    else if (side === 'bottom') this.setBottomSide(position.y, ratio)
+    else this.setLeftSide(position.x, ratio)
+  }
+
+  // METHOD
+  private setTopRightCorner (position: Position, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (position.x < (previous.x + 1)) position.x = previous.x + 1
+    if (position.x > (this.image.width)) position.x = this.image.width
+    if (position.y < 0) position.y = 0
+    if (position.y > (previous.y + previous.height - 1)) position.y = previous.y + previous.height - 1
+
+    if (ratio === null) {
+      this.cropper.y = position.y
+      this.cropper.height = previous.y + previous.height - position.y
+      this.cropper.width = position.x - previous.x
+      return
+    }
+
+    this.cropper.y = position.y
+    this.cropper.height = previous.y + previous.height - position.y
+    this.cropper.width = this.cropper.height * ratio.width / ratio.height
+
+    if ((this.cropper.x + this.cropper.width) <= this.image.width) return
+
+    this.cropper = { ...previous }
+
+    this.cropper.width = this.image.width - this.cropper.x
+    this.cropper.height = this.cropper.width * ratio.height / ratio.width
+    this.cropper.y = previous.y - (this.cropper.height - previous.height)
+
+  }
+
+  // METHOD
+  private setBottomRightCorner (position: Position, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (position.y < (previous.y + 1)) position.y = previous.y + 1
+    if (position.y > this.image.height) position.y = this.image.height
+    if (position.x < (previous.x + 1)) position.x = previous.x + 1
+    if (position.x > (this.image.width)) position.x = this.image.width
+
+    if (ratio === null) {
+      this.cropper.height = position.y - previous.y
+      this.cropper.width = position.x - previous.x
+      return
+    }
+
+    this.cropper.height = position.y - previous.y
+    this.cropper.width = this.cropper.height * ratio.width / ratio.height
+
+    if ((this.cropper.x + this.cropper.width) <= this.image.width) return
+
+    this.cropper = { ...previous }
+
+    this.cropper.width = this.image.width - this.cropper.x
+    this.cropper.height = this.cropper.width * ratio.height / ratio.width
+
+  }
+
+  // METHOD
+  private setBottomLeftCorner (position: Position, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (position.y < (previous.y + 1)) position.y = previous.y + 1
+    if (position.y > this.image.height) position.y = this.image.height
+    if (position.x < 0) position.x = 0
+    if (position.x > (previous.x + previous.width - 1)) position.x = previous.x + previous.width - 1
+
+    if (ratio === null) {
+      this.cropper.height = position.y - previous.y
+      this.cropper.x = position.x
+      this.cropper.width = previous.width - (position.x - previous.x)
+      return
+    }
+
+    this.cropper.height = position.y - previous.y
+    this.cropper.width = this.cropper.height * ratio.width / ratio.height
+    this.cropper.x = previous.x - (this.cropper.width - previous.width)
+
+    if (this.cropper.x >= 0) return
+
+    this.cropper = { ...previous }
+
+    this.cropper.width = previous.x + previous.width
+    this.cropper.x = 0
+    this.cropper.height = this.cropper.width * ratio.height / ratio.width
+
+  }
+
+  // METHOD
+  private setTopLeftCorner (position: Position, ratio: Dimensions | null): void {
+
+    const previous = { ...this.cropper }
+
+    if (position.y < 0) position.y = 0
+    if (position.y > (previous.y + previous.height - 1)) position.y = previous.y + previous.height - 1
+    if (position.x < 0) position.x = 0
+    if (position.x > (previous.x + previous.width - 1)) position.x = previous.x + previous.width - 1
+
+    if (ratio === null) {
+      this.cropper.y = position.y
+      this.cropper.height = previous.y + previous.height - position.y
+      this.cropper.x = position.x
+      this.cropper.width = previous.width - (position.x - previous.x)
+      return
+    }
+
+    this.cropper.y = position.y
+    this.cropper.height = previous.y + previous.height - position.y
+    this.cropper.width = this.cropper.height * ratio.width / ratio.height
+    this.cropper.x = previous.x - (this.cropper.width - previous.width)
+
+    if (this.cropper.x >= 0) return
+
+    this.cropper = { ...previous }
+
+    this.cropper.x = 0
+    this.cropper.width = previous.x + previous.width
+    this.cropper.height = this.cropper.width * ratio.height / ratio.width
+    this.cropper.y = previous.y - (this.cropper.height - previous.height)
+
+  }
+
+  // METHOD
+  public setCorner (corner: CropperCorner, position: Position, ratio: Dimensions | null): void {
+    if (corner === 'top_right') this.setTopRightCorner(position, ratio)
+    else if (corner === 'bottom_right') this.setBottomRightCorner(position, ratio)
+    else if (corner === 'bottom_left') this.setBottomLeftCorner(position, ratio)
+    else this.setTopLeftCorner(position, ratio)
+  }
+
 }

@@ -3,11 +3,11 @@ import { useContext, useEffect, useState, type ReactNode } from 'react'
 import { CropperCalculator } from '@lib/editor/CropperCalculator'
 import type { Dimensions } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
-import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
+import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
+import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 import { NumberInput } from '@ui/NumberInput/NumberInput'
 import css from './EditorDimensionsInput.module.scss'
-import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 
 // PROPS
 interface EditorDimensionsInputProps {
@@ -67,13 +67,11 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
 
     value = Math.round(value)
 
-    const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-    let result = { ...cropper.values.current }
+    const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+    if (property === 'width') calculator.setWidth(value, tools.aspectRatio)
+    else calculator.setHeight(value, tools.aspectRatio)
 
-    if (property === 'width') result = calculator.setWidth(value, tools.aspectRatio)
-    else result = calculator.setHeight(value, tools.aspectRatio)
-
-    cropper.setValues(result)
+    cropper.setValues(calculator.cropper)
 
   }
 

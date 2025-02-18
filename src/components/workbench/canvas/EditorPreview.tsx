@@ -54,10 +54,10 @@ export function EditorPreview (props: EditorPreviewProps): ReactNode {
     if (input.image === null) return
     if (preview.values.current === null) return
 
-    const calculator = PreviewCalculator(input.image.dimensions, preview.values.current)
-    const result = calculator.reset()
+    const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
+    calculator.reset()
 
-    preview.setValues(result)
+    preview.setValues(calculator.preview)
 
   }, [input.image])
 

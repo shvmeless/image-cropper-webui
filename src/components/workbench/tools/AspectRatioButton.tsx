@@ -30,12 +30,11 @@ export function AspectRatioButton (props: AspectRatioButtonProps): ReactNode {
     if (cropper.values.current === null) return
     const { width, height } = cropper.values.current
 
-    const calculator = CropperCalculator(input.image.dimensions, cropper.values.current)
-    const result = (width >= height)
-      ? calculator.setWidth(width, props.value)
-      : calculator.setHeight(height, props.value)
+    const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
+    if (width >= height) calculator.setWidth(width, props.value)
+    else calculator.setHeight(height, props.value)
 
-    cropper.setValues(result)
+    cropper.setValues(calculator.cropper)
 
   }
 
