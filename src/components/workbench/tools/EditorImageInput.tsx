@@ -54,7 +54,7 @@ export function EditorImageInput (props: EditorImageInputProps): ReactNode {
       <p className={css.subtitle}>{'or click to browse in your device'}</p>
     </div>
 
-    <input className={css.input} type='file' onChange={changeHandler}/>
+    <input className={css.input} type='file' onChange={changeHandler} aria-label='Image Input'/>
 
   </div>
 

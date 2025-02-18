@@ -82,7 +82,7 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
       <div className={css.label}><span>{'X'}</span></div>
       <NumberInput
         className={css.input}
-        placeholder=''
+        placeholder='0'
         value={values.x}
         onValueChange={(x) => { updateValues({ x }) }}
         onComponentBlur={(x) => { inputChangeHandler('x', x) }}
@@ -94,7 +94,7 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
       <div className={css.label}><span>{'Y'}</span></div>
       <NumberInput
         className={css.input}
-        placeholder=''
+        placeholder='0'
         value={values.y}
         onValueChange={(y) => { updateValues({ y }) }}
         onComponentBlur={(y) => { inputChangeHandler('y', y) }}

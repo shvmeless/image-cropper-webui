@@ -75,6 +75,7 @@ export function AspectRatioOptions (): ReactNode {
   return <>
 
     <BasicIconButton className={css.button}
+      label='Rotate Aspect Ratio'
       icon='rotate'
       disabled={input.image === null}
       onClick={rotateHandler}
@@ -87,6 +88,7 @@ export function AspectRatioOptions (): ReactNode {
     />))}
 
     {(tools.aspectRatio !== null) && (<BasicIconButton className={css.button}
+      label='Remove Aspect Ratio'
       icon='close'
       iconSize='small'
       disabled={input.image === null}

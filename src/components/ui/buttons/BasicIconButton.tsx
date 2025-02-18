@@ -7,6 +7,7 @@ import css from './BasicIconButton.module.scss'
 // PROPS
 interface BasicIconButtonProps {
   onClick?: () => void
+  label: string
   icon: IconVariant
   iconSize?: 'small' | 'medium' | 'large'
   className?: string
@@ -27,6 +28,7 @@ export function BasicIconButton (props: BasicIconButtonProps): ReactNode {
   // RENDER
   return <button type='button'
     className={styles}
+    aria-label={props.label}
     onClick={props.onClick}
     disabled={props.disabled}
   >

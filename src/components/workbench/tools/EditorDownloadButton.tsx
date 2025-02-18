@@ -46,6 +46,7 @@ export function EditorDownloadButton (props: EditorDownloadButtonProps): ReactNo
   // RENDER
   return <BasicIconButton
     className={useClasses(css.EditorDownloadButton, props.className)}
+    label='Download'
     icon='download'
     iconSize='small'
     onClick={formatChangeHandler}

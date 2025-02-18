@@ -26,6 +26,7 @@ export function EditorRenderModeButton (props: EditorRenderModeButtonProps): Rea
 
   // RENDER
   return <BasicIconButton className={useClasses(css.EditorRenderModeButton, props.className)}
+    label='Render Mode'
     icon={(tools.renderMode === 'default') ? 'renderDefault' : 'renderPixelated'}
     iconSize='small'
     active={(tools.renderMode === 'pixelated')}

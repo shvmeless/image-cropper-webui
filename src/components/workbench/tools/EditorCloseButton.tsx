@@ -24,6 +24,7 @@ export function EditorCloseButton (props: EditorCloseButtonProps): ReactNode {
   // RENDER
   return <BasicIconButton
     className={useClasses(css.EditorCloseButton, props.className)}
+    label='Close Image'
     icon='close'
     iconSize='small'
     onClick={clickHandler}

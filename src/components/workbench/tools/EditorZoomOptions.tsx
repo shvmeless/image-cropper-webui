@@ -71,6 +71,7 @@ export function EditorZoomOptions (): ReactNode {
 
     <BasicIconButton className={css.button}
       icon='minus'
+      label='Zoom Out'
       onClick={(): void => { changeZoom('OUT') }}
       disabled={input.image === null}
     />
@@ -83,6 +84,7 @@ export function EditorZoomOptions (): ReactNode {
 
     <BasicIconButton className={css.button}
       icon='plus'
+      label='Zoom In'
       onClick={(): void => { changeZoom('IN') }}
       disabled={input.image === null}
     />

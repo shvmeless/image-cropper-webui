@@ -84,7 +84,7 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
       <div className={css.label}><span>{'W'}</span></div>
       <NumberInput
         className={css.input}
-        placeholder=''
+        placeholder='0'
         value={values.width}
         onValueChange={(width) => { updateValues({ width }) }}
         onComponentBlur={(width) => { inputChangeHandler('width', width) }}
@@ -96,7 +96,7 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
       <div className={css.label}><span>{'H'}</span></div>
       <NumberInput
         className={css.input}
-        placeholder=''
+        placeholder='0'
         value={values.height}
         onValueChange={(height) => { updateValues({ height }) }}
         onComponentBlur={(height) => { inputChangeHandler('height', height) }}
