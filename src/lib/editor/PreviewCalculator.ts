@@ -31,10 +31,8 @@ export class PreviewCalculator {
   }
 
   // METHOD
-  public zoom (percent: number): void {
+  private setZoom (multiplier: number): void {
     const previous = { ...this.preview }
-
-    const multiplier = (previous.width / this.image.width) + percent
 
     this.preview.width = this.image.width * multiplier
     this.preview.height = this.image.height * this.preview.width / this.image.width
@@ -43,10 +41,22 @@ export class PreviewCalculator {
   }
 
   // METHOD
-  public zoomAt (target: Position, percent: number): void {
-    const previous = { ...this.preview }
+  public zoomIn (percent: number): void {
+    const current = this.preview.width / this.image.width
+    const multiplier = current + percent
+    this.setZoom(multiplier)
+  }
 
-    const multiplier = (previous.width / this.image.width) + percent
+  // METHOD
+  public zoomOut (percent: number): void {
+    const current = this.preview.width / this.image.width
+    const multiplier = current - percent
+    this.setZoom(multiplier)
+  }
+
+  // METHOD
+  private setZoomAt (target: Position, multiplier: number): void {
+    const previous = { ...this.preview }
 
     this.preview.width = this.image.width * multiplier
     this.preview.height = this.image.height * this.preview.width / this.image.width
@@ -59,4 +69,19 @@ export class PreviewCalculator {
     this.preview.x = previous.x - (target.x - pos2.x)
     this.preview.y = previous.y - (target.y - pos2.y)
   }
+
+  // METHOD
+  public zoomInAt (target: Position, percent: number): void {
+    const current = this.preview.width / this.image.width
+    const multiplier = current + percent
+    this.setZoomAt(target, multiplier)
+  }
+
+  // METHOD
+  public zoomOutAt (target: Position, percent: number): void {
+    const current = this.preview.width / this.image.width
+    const multiplier = current - percent
+    this.setZoomAt(target, multiplier)
+  }
+
 }

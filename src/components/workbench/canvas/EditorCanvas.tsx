@@ -87,7 +87,8 @@ export function EditorCanvas (props: EditorCanvasProps): ReactNode {
     const position = utils.relativeToPreview(event)
 
     const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
-    calculator.zoomAt(position, (event.deltaY < 0) ? 0.1 : -0.1)
+    if (event.deltaY < 0) calculator.zoomInAt(position, 0.1)
+    else calculator.zoomOutAt(position, 0.1)
 
     preview.setValues(calculator.preview)
 

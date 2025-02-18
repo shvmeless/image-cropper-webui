@@ -2,10 +2,10 @@
 import { useContext, useEffect, useState, type ReactNode } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions } from '@lib/common/types'
-import { useClasses } from '@hooks/common/useClasses'
 import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { BasicIconButton } from '@ui/buttons/BasicIconButton'
+import { BasicButton } from '@ui/buttons/BasicButton'
 import css from './EditorZoomOptions.module.scss'
 
 // COMPONENT
@@ -39,6 +39,19 @@ export function EditorZoomOptions (): ReactNode {
 
   }, [input.image])
 
+  // HANDLER
+  const resetZoom = (): void => {
+
+    if (input.image === null) return
+    if (preview.values.current === null) return
+
+    const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
+    calculator.reset()
+
+    preview.setValues(calculator.preview)
+
+  }
+
   // FUNCTION
   const changeZoom = (zoom: 'IN' | 'OUT'): void => {
 
@@ -46,7 +59,8 @@ export function EditorZoomOptions (): ReactNode {
     if (preview.values.current === null) return
 
     const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
-    calculator.zoom((zoom === 'IN') ? 0.1 : -0.1)
+    if (zoom === 'IN') calculator.zoomIn(0.1)
+    else calculator.zoomOut(0.1)
 
     preview.setValues(calculator.preview)
 
@@ -61,11 +75,11 @@ export function EditorZoomOptions (): ReactNode {
       disabled={input.image === null}
     />
 
-    <input className={useClasses(css.value, (input.image === null) && css.disabled)}
-      value={`${Math.round(value)}%`}
+    <BasicButton className={css.value}
+      onClick={resetZoom}
       disabled={input.image === null}
-      readOnly
-    />
+    >{Math.round(value)}{'%'}
+    </BasicButton>
 
     <BasicIconButton className={css.button}
       icon='plus'

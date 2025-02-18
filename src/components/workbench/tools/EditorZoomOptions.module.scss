@@ -17,19 +17,4 @@
   min-height: 3rem;
   flex-grow: 1;
   border-radius: $radius-small;
-  cursor: default
-}
-
-// ELEMENT
-.value:disabled {
-  background-color: $primary-low;
-  border: solid 1px $border-low;
-  color: $text-low;
-}
-
-// ELEMENT
-.value:not(:disabled) {
-  background-color: $primary-normal;
-  border: solid 1px $border-normal;
-  color: $text-normal;
 }
