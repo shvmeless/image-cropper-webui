@@ -7,15 +7,15 @@ import { EditorCropperContext, useEditorCropper } from '@contexts/editor/EditorC
 import { EditorPreviewContext, useEditorPreview } from '@contexts/editor/EditorPreviewContext'
 import { EditorToolsContext, useEditorTools } from '@contexts/editor/EditorToolsContext'
 import { EditorImageInput } from '@workbench/tools/EditorImageInput'
+import { EditorRenderModeButton } from './tools/EditorRenderModeButton'
 import { EditorDimensionsInput } from './tools/EditorDimensionsInput'
-import { EditorPositionInput } from './tools/EditorPositionInput'
 import { EditorDownloadButton } from './tools/EditorDownloadButton'
+import { EditorPositionInput } from './tools/EditorPositionInput'
 import { AspectRatioOptions } from './tools/AspectRatioOptions'
 import { EditorCloseButton } from './tools/EditorCloseButton'
 import { EditorZoomOptions } from './tools/EditorZoomOptions'
 import { EditorCanvas } from './canvas/EditorCanvas'
 import css from './EditorWorkbench.module.scss'
-import { EditorRenderModeButton } from './tools/EditorRenderModeButton'
 
 // PROPS
 interface EditorWorkbenchProps {

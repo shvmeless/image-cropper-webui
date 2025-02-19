@@ -5,6 +5,7 @@ import { useClasses } from '@hooks/common/useClasses'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
 import { BasicIconButton } from '@ui/buttons/BasicIconButton'
+import { BasicTooltip } from '@ui/BasicTooltip/BasicTooltip'
 import css from './EditorDownloadButton.module.scss'
 
 // PROPS
@@ -44,12 +45,17 @@ export function EditorDownloadButton (props: EditorDownloadButtonProps): ReactNo
   }
 
   // RENDER
-  return <BasicIconButton
-    className={useClasses(css.EditorDownloadButton, props.className)}
-    label='Download'
-    icon='download'
-    iconSize='small'
-    onClick={formatChangeHandler}
-  />
+  return <BasicTooltip className={useClasses(css.EditorDownloadButton, props.className)}
+    text='Crop and download'
+    position='left'
+  >
+    <BasicIconButton
+      className={css.button}
+      label='Download'
+      icon='download'
+      iconSize='small'
+      onClick={formatChangeHandler}
+    />
+  </BasicTooltip>
 
 }

@@ -3,8 +3,10 @@
 
 // COMPONENT
 .EditorRenderModeButton {
-  height: 3rem;
-  min-height: 3rem;
-  width: 3rem;
-  min-width: 3rem;
+  .button {
+    height: 3rem;
+    min-height: 3rem;
+    width: 3rem;
+    min-width: 3rem;
+  }
 }

@@ -2,9 +2,10 @@
 import { useContext, useEffect, useState, type ReactNode } from 'react'
 import { PreviewCalculator } from '@lib/editor/PreviewCalculator'
 import type { Dimensions } from '@lib/common/types'
-import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
+import { EditorPreviewContext } from '@contexts/editor/EditorPreviewContext'
 import { BasicIconButton } from '@ui/buttons/BasicIconButton'
+import { BasicTooltip } from '@ui/BasicTooltip/BasicTooltip'
 import { BasicButton } from '@ui/buttons/BasicButton'
 import css from './EditorZoomOptions.module.scss'
 
@@ -69,25 +70,31 @@ export function EditorZoomOptions (): ReactNode {
   // RENDER
   return <>
 
-    <BasicIconButton className={css.button}
-      icon='minus'
-      label='Zoom Out'
-      onClick={(): void => { changeZoom('OUT') }}
-      disabled={input.image === null}
-    />
+    <BasicTooltip text='Zoom Out' position='top' disabled={input.image === null}>
+      <BasicIconButton className={css.button}
+        icon='minus'
+        label='Zoom Out'
+        onClick={(): void => { changeZoom('OUT') }}
+        disabled={input.image === null}
+      />
+    </BasicTooltip>
 
-    <BasicButton className={css.value}
-      onClick={resetZoom}
-      disabled={input.image === null}
-    >{Math.round(value)}{'%'}
-    </BasicButton>
+    <BasicTooltip className={css.tooltip} text='Reset' position='top' disabled={input.image === null}>
+      <BasicButton className={css.value}
+        onClick={resetZoom}
+        disabled={input.image === null}
+      >{Math.round(value)}{'%'}
+      </BasicButton>
+    </BasicTooltip>
 
-    <BasicIconButton className={css.button}
-      icon='plus'
-      label='Zoom In'
-      onClick={(): void => { changeZoom('IN') }}
-      disabled={input.image === null}
-    />
+    <BasicTooltip text='Zoom In' position='top' disabled={input.image === null}>
+      <BasicIconButton className={css.button}
+        icon='plus'
+        label='Zoom In'
+        onClick={(): void => { changeZoom('IN') }}
+        disabled={input.image === null}
+      />
+    </BasicTooltip>
 
   </>
 

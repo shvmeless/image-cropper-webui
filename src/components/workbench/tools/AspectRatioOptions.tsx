@@ -1,13 +1,14 @@
 // IMPORTS
 import { type ReactNode, useContext, useEffect, useState } from 'react'
+import { CropperCalculator } from '@lib/editor/CropperCalculator'
 import type { Dimensions } from '@lib/common/types'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
+import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
 import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 import { BasicIconButton } from '@ui/buttons/BasicIconButton'
+import { BasicTooltip } from '@ui/BasicTooltip/BasicTooltip'
 import { AspectRatioButton } from './AspectRatioButton'
 import css from './AspectRatioOptions.module.scss'
-import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
-import { CropperCalculator } from '@lib/editor/CropperCalculator'
 
 // VALUES
 const ASPECT_RATIOS: Array<Dimensions> = [
@@ -74,12 +75,14 @@ export function AspectRatioOptions (): ReactNode {
   // RENDER
   return <>
 
-    <BasicIconButton className={css.button}
-      label='Rotate Aspect Ratio'
-      icon='rotate'
-      disabled={input.image === null}
-      onClick={rotateHandler}
-    />
+    <BasicTooltip text='Rotate' position='left' disabled={input.image === null}>
+      <BasicIconButton className={css.button}
+        label='Rotate Aspect Ratio'
+        icon='rotate'
+        onClick={rotateHandler}
+        disabled={input.image === null}
+      />
+    </BasicTooltip>
 
     {values.map((ratio, index) => (<AspectRatioButton
       className={css.button}
@@ -87,13 +90,15 @@ export function AspectRatioOptions (): ReactNode {
       key={index}
     />))}
 
-    {(tools.aspectRatio !== null) && (<BasicIconButton className={css.button}
-      label='Remove Aspect Ratio'
-      icon='close'
-      iconSize='small'
-      disabled={input.image === null}
-      onClick={removeHandler}
-    />)}
+    {(tools.aspectRatio !== null) && (<BasicTooltip text='Remove' position='left' disabled={input.image === null}>
+      <BasicIconButton className={css.button}
+        label='Remove Aspect Ratio'
+        icon='close'
+        iconSize='small'
+        onClick={removeHandler}
+        disabled={input.image === null}
+      />
+    </BasicTooltip>)}
 
   </>
 

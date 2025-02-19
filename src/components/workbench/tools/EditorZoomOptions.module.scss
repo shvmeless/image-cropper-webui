@@ -10,11 +10,12 @@
 }
 
 // ELEMENT
-.value {
-  display: grid;
-  place-items: center;
-  height: 3rem;
-  min-height: 3rem;
-  flex-grow: 1;
-  border-radius: $radius-small;
+.tooltip {
+  display: contents;
+
+  .value {
+    height: 3rem;
+    flex-grow: 1;
+    border-radius: $radius-small;
+  }
 }

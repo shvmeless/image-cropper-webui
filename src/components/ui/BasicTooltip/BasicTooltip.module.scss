@@ -1,0 +1,69 @@
+// IMPORTS
+@import '../../../styles/vars';
+
+// COMPONENT
+.BasicTooltip {
+  position: relative;
+
+  .text {
+    position: absolute;
+    padding: 0.5rem 1rem;
+    z-index: 100;
+
+    background-color: $primary-low;
+    border: solid 1px $border-normal;
+    border-radius: $radius-small;
+    color: $text-low;
+
+    font-size: $font-size-small;
+    white-space: nowrap;
+
+    &.top {
+      top: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100%);
+    }
+
+    &.bottom {
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+    }
+
+    &.left {
+      left: -0.5rem;
+      top: 50%;
+      transform: translateX(-100%) translateY(-50%);
+    }
+
+    &.right {
+      right: -0.5rem;
+      top: 50%;
+      transform: translateX(100%) translateY(-50%);
+    }
+
+    &.topleft {
+      top: -0.5rem;
+      right: 0;
+      transform: translateY(-100%);
+    }
+
+    &.topright {
+      top: -0.5rem;
+      left: 0;
+      transform: translateY(-100%);
+    }
+
+    &.bottomleft {
+      bottom: -0.5rem;
+      right: 0;
+      transform: translateY(100%);
+    }
+
+    &.bottomright {
+      bottom: -0.5rem;
+      left: 0;
+      transform: translateY(100%);
+    }
+  }
+}

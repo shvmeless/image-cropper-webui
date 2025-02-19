@@ -3,6 +3,7 @@ import { useContext, type ReactNode } from 'react'
 import { useClasses } from '@hooks/common/useClasses'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { BasicIconButton } from '@ui/buttons/BasicIconButton'
+import { BasicTooltip } from '@ui/BasicTooltip/BasicTooltip'
 import css from './EditorCloseButton.module.scss'
 
 // PROPS
@@ -22,12 +23,17 @@ export function EditorCloseButton (props: EditorCloseButtonProps): ReactNode {
   }
 
   // RENDER
-  return <BasicIconButton
+  return <BasicTooltip
     className={useClasses(css.EditorCloseButton, props.className)}
-    label='Close Image'
-    icon='close'
-    iconSize='small'
-    onClick={clickHandler}
-  />
+    text='Close Image'
+    position='right'
+  >
+    <BasicIconButton className={css.button}
+      label='Close Image'
+      icon='close'
+      iconSize='small'
+      onClick={clickHandler}
+    />
+  </BasicTooltip>
 
 }
