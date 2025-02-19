@@ -1,5 +1,5 @@
 // IMPORTS
-@import '../../../styles/vars';
+@use '../../../styles/vars';
 
 // COMPONENT
 .EditorCanvas {
@@ -12,6 +12,6 @@
     position: absolute;
     left: 0;
     top: 0;
-    border-radius: $radius-medium;
+    border-radius: vars.$radius-medium;
   }
 }

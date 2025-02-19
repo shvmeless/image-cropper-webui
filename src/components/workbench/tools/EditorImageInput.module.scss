@@ -1,5 +1,5 @@
 // IMPORTS
-@import '../../../styles/vars';
+@use '../../../styles/vars';
 
 // COMPONENT
 .EditorImageInput {
@@ -16,7 +16,7 @@
 
   .icon {
     stroke-width: 1pt;
-    color: $primary-text-normal;
+    color: vars.$primary-text-normal;
   }
 
   .text{
@@ -25,10 +25,10 @@
     align-items: center;
 
     .title {
-      color: $primary-text-normal;
+      color: vars.$primary-text-normal;
     }
     .subtitle {
-      color: $tertiary-decoration-normal;
+      color: vars.$tertiary-decoration-normal;
     }
   }
 
@@ -45,15 +45,15 @@
 // STATE
 .EditorImageInput:hover {
   .icon {
-    color: $primary-text-strong;
+    color: vars.$primary-text-strong;
   }
 
   .text {
     .title {
-      color: $primary-text-strong;
+      color: vars.$primary-text-strong;
     }
     .subtitle {
-      color: $tertiary-decoration-strong;
+      color: vars.$tertiary-decoration-strong;
     }
   }
 }
@@ -61,18 +61,18 @@
 // STATE
 .EditorImageInput.dragging {
   background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 2%), rgba(255, 255, 255, 2%) 10px, rgba(0, 0, 0, 0%) 5px, rgba(0, 0, 0, 0%) 25px);
-  background-color: $primary-background-low;
+  background-color: vars.$primary-background-low;
 
   .icon {
-    color: $primary-text-strong;
+    color: vars.$primary-text-strong;
   }
 
   .text {
     .title {
-      color: $primary-text-strong;
+      color: vars.$primary-text-strong;
     }
     .subtitle {
-      color: $tertiary-decoration-strong;
+      color: vars.$tertiary-decoration-strong;
     }
   }
 }

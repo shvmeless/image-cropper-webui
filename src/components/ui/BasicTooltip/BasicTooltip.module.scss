@@ -1,5 +1,5 @@
 // IMPORTS
-@import '../../../styles/vars';
+@use '../../../styles/vars';
 
 // COMPONENT
 .BasicTooltip {
@@ -10,12 +10,12 @@
     padding: 0.5rem 1rem;
     z-index: 100;
 
-    background-color: $primary-background-low;
-    border: solid 1px $primary-decoration-normal;
-    border-radius: $radius-small;
-    color: $primary-text-low;
+    background-color: vars.$primary-background-low;
+    border: solid 1px vars.$primary-decoration-normal;
+    border-radius: vars.$radius-small;
+    color: vars.$primary-text-low;
 
-    font-size: $font-size-small;
+    font-size: vars.$font-size-small;
     white-space: nowrap;
 
     &.top {

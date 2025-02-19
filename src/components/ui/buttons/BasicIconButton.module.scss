@@ -1,50 +1,50 @@
 // IMPORTS
-@import '../../../styles/vars';
+@use '../../../styles/vars';
 
 // COMPONENT
 .BasicIconButton {
   display: grid;
   place-items: center;
-  border-radius: $radius-small;
+  border-radius: vars.$radius-small;
 }
 
 // STATE
 .BasicIconButton:disabled {
-  background-color: $primary-background-low;
-  border: solid 1px $primary-decoration-low;
-  color: $primary-text-low;
+  background-color: vars.$primary-background-low;
+  border: solid 1px vars.$primary-decoration-low;
+  color: vars.$primary-text-low;
 }
 
 // STATE
 .BasicIconButton:not(:disabled) {
-  background-color: $primary-background-normal;
-  border: solid 1px $primary-decoration-normal;
-  color: $primary-text-normal;
+  background-color: vars.$primary-background-normal;
+  border: solid 1px vars.$primary-decoration-normal;
+  color: vars.$primary-text-normal;
 
   &:hover {
-    background-color: $primary-background-strong;
+    background-color: vars.$primary-background-strong;
   }
 
   &:focus-visible {
-    background-color: $primary-background-strong;
-    border: solid 2px $primary-decoration-strong;
-    color: $primary-text-strong;
+    background-color: vars.$primary-background-strong;
+    border: solid 2px vars.$primary-decoration-strong;
+    color: vars.$primary-text-strong;
   }
 }
 
 // STATE
 .BasicIconButton:not(:disabled).active {
-  background-color: $tertiary-background-normal;
-  border: solid 1px $tertiary-decoration-normal;
-  color: $primary-text-normal;
+  background-color: vars.$tertiary-background-normal;
+  border: solid 1px vars.$tertiary-decoration-normal;
+  color: vars.$primary-text-normal;
 
   &:hover {
-    background-color: $tertiary-background-normal;
+    background-color: vars.$tertiary-background-normal;
   }
 
   &:focus-visible {
-    background-color: $tertiary-background-normal;
-    border: solid 2px $tertiary-decoration-normal;
-    color: $primary-text-normal;
+    background-color: vars.$tertiary-background-normal;
+    border: solid 2px vars.$tertiary-decoration-normal;
+    color: vars.$primary-text-normal;
   }
 }

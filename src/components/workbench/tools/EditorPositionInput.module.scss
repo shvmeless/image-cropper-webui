@@ -1,5 +1,5 @@
 // IMPORTS
-@import '../../../styles/vars';
+@use '../../../styles/vars';
 
 // ELEMENT
 .box {
@@ -14,7 +14,7 @@
     min-height: 3rem;
     width: 3rem;
     min-width: 3rem;
-    border-radius: $radius-small 0 0 $radius-small;
+    border-radius: vars.$radius-small 0 0 vars.$radius-small;
   }
 
   .input {
@@ -23,44 +23,44 @@
     padding: 0 1rem;
     flex-grow: 1;
     width: 0;
-    border-radius: 0 $radius-small $radius-small 0;
+    border-radius: 0 vars.$radius-small vars.$radius-small 0;
   }
 }
 
 // STATE
 .box.disabled {
   .label {
-    background-color: $primary-background-low;
-    border: solid 1px $primary-decoration-low;
-    color: $primary-text-low;
+    background-color: vars.$primary-background-low;
+    border: solid 1px vars.$primary-decoration-low;
+    color: vars.$primary-text-low;
     border-right: none;
   }
 
   .input {
-    background-color: $primary-background-low;
-    border: solid 1px $primary-decoration-low;
-    color: $primary-text-low;
+    background-color: vars.$primary-background-low;
+    border: solid 1px vars.$primary-decoration-low;
+    color: vars.$primary-text-low;
   }
 }
 
 // STATE
 .box:not(.disabled) {
   .label {
-    background-color: $primary-background-normal;
-    border: solid 1px $primary-decoration-normal;
-    color: $primary-text-normal;
+    background-color: vars.$primary-background-normal;
+    border: solid 1px vars.$primary-decoration-normal;
+    color: vars.$primary-text-normal;
     border-right: none;
   }
 
   .input {
-    background-color: $primary-background-normal;
-    border: solid 1px $primary-decoration-normal;
-    color: $primary-text-normal;
+    background-color: vars.$primary-background-normal;
+    border: solid 1px vars.$primary-decoration-normal;
+    color: vars.$primary-text-normal;
 
     &:focus {
-      background-color: $primary-background-strong;
-      border: solid 1px $primary-decoration-strong;
-      color: $primary-text-strong;
+      background-color: vars.$primary-background-strong;
+      border: solid 1px vars.$primary-decoration-strong;
+      color: vars.$primary-text-strong;
     }
   }
 }

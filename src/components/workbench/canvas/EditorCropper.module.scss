@@ -1,11 +1,11 @@
 // IMPORTS
-@import '../../../styles/vars';
+@use '../../../styles/vars';
 
 // COMPONENT
 .EditorCropper {
   position: relative;
   backdrop-filter: brightness(200%);
-  border: solid 1px $primary-decoration-normal;
+  border: solid 1px vars.$primary-decoration-normal;
   cursor: move;
 
   .top {

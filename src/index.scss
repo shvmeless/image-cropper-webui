@@ -1,6 +1,6 @@
 // IMPORTS
 @use './styles/reset';
-@import './styles/vars';
+@use 'styles/vars';
 
 // FONTS
 @font-face {
@@ -15,7 +15,7 @@ html {
 
 // BODY
 body {
-  font-size: $font-size-medium;
+  font-size: vars.$font-size-medium;
   font-family: Lexend, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -27,8 +27,8 @@ body {
   line-height: 1.5;
   font-weight: 400;
 
-  background-color: $primary-background-low;
-  color: $primary-text-normal;
+  background-color: vars.$primary-background-low;
+  color: vars.$primary-text-normal;
   color-scheme: light dark;
 
   font-synthesis: none;
