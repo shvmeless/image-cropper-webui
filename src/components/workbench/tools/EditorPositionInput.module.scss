@@ -30,37 +30,37 @@
 // STATE
 .box.disabled {
   .label {
-    background-color: $primary-low;
-    border: solid 1px $border-low;
-    color: $text-low;
+    background-color: $primary-background-low;
+    border: solid 1px $primary-decoration-low;
+    color: $primary-text-low;
     border-right: none;
   }
 
   .input {
-    background-color: $primary-low;
-    border: solid 1px $border-low;
-    color: $text-low;
+    background-color: $primary-background-low;
+    border: solid 1px $primary-decoration-low;
+    color: $primary-text-low;
   }
 }
 
 // STATE
 .box:not(.disabled) {
   .label {
-    background-color: $primary-normal;
-    border: solid 1px $border-normal;
-    color: $text-normal;
+    background-color: $primary-background-normal;
+    border: solid 1px $primary-decoration-normal;
+    color: $primary-text-normal;
     border-right: none;
   }
 
   .input {
-    background-color: $primary-normal;
-    border: solid 1px $border-normal;
-    color: $text-normal;
+    background-color: $primary-background-normal;
+    border: solid 1px $primary-decoration-normal;
+    color: $primary-text-normal;
 
     &:focus {
-      background-color: $primary-strong;
-      border: solid 1px $border-strong;
-      color: $text-strong;
+      background-color: $primary-background-strong;
+      border: solid 1px $primary-decoration-strong;
+      color: $primary-text-strong;
     }
   }
 }

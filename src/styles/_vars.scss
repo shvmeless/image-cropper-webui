@@ -1,27 +1,27 @@
 // PRIMARY
-$primary-low: rgb(0, 0, 0);
-$primary-normal: rgb(15, 15, 15);
-$primary-strong: rgb(30, 30, 30);
+$primary-background-low: rgb(0, 0, 0);
+$primary-background-normal: rgb(15, 15, 15);
+$primary-background-strong: rgb(30, 30, 30);
 
 // TEXT
-$text-low: rgb(155, 155, 155);
-$text-normal: rgb(205, 205, 205);
-$text-strong: rgb(255, 255, 255);
+$primary-text-low: rgb(155, 155, 155);
+$primary-text-normal: rgb(205, 205, 205);
+$primary-text-strong: rgb(255, 255, 255);
 
 // BORDER
-$border-low: rgb(90, 90, 90);
-$border-normal: rgb(120, 120, 120);
-$border-strong: rgb(180, 180, 180);
+$primary-decoration-low: rgb(90, 90, 90);
+$primary-decoration-normal: rgb(120, 120, 120);
+$primary-decoration-strong: rgb(180, 180, 180);
 
 // TERTIARY
-$tertiary-low: rgb(115, 85, 195);
-$tertiary-normal: rgb(145, 115, 225);
-$tertiary-strong: rgb(175, 145, 255);
+$tertiary-background-low: rgb(28, 25, 36);
+$tertiary-background-normal: rgb(41, 35, 57);
+$tertiary-background-strong: rgb(54, 45, 78);
 
-// TERTIARY TRANSPARENT
-$tertiary-transparent-low: rgba(145, 115, 225, 10%);
-$tertiary-transparent-normal: rgba(145, 115, 225, 20%);
-$tertiary-transparent-strong: rgba(145, 115, 225, 30%);
+// TERTIARY
+$tertiary-decoration-low: rgb(115, 85, 195);
+$tertiary-decoration-normal: rgb(145, 115, 225);
+$tertiary-decoration-strong: rgb(175, 145, 255);
 
 // FONT
 $font-size-small: 1.2rem;

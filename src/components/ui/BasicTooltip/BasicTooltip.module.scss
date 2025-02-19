@@ -10,10 +10,10 @@
     padding: 0.5rem 1rem;
     z-index: 100;
 
-    background-color: $primary-low;
-    border: solid 1px $border-normal;
+    background-color: $primary-background-low;
+    border: solid 1px $primary-decoration-normal;
     border-radius: $radius-small;
-    color: $text-low;
+    color: $primary-text-low;
 
     font-size: $font-size-small;
     white-space: nowrap;
