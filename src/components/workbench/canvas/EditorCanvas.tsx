@@ -53,9 +53,8 @@ export function EditorCanvas (props: EditorCanvasProps): ReactNode {
 
   }, [])
 
-  // HANDLER
-  const mouseDownHandler = (event: MouseEvent<HTMLDivElement>): void => {
-    if (!event.altKey) return
+  // FUNCTION
+  const moveCanvas = (event: MouseEvent<HTMLDivElement>): void => {
     dragging.update((target, previous) => {
 
       if (input.image === null) return
@@ -70,6 +69,36 @@ export function EditorCanvas (props: EditorCanvasProps): ReactNode {
       preview.setValues(calculator.preview)
 
     })
+  }
+
+  // FUNCTION
+  const zoomCanvas = (start: MouseEvent<HTMLDivElement>): void => {
+    dragging.update((current, previous) => {
+
+      if (input.image === null) return
+      if (elements.preview.current === null) return
+      if (elements.cropper.current === null) return
+      if (preview.values.current === null) return
+
+      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+      const position = utils.relativeToPreview(start)
+
+      const diff = current.clientX - (previous ?? start).clientX
+      const multiplier = 0.05 * (diff / 25)
+
+      const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
+      if (multiplier < 0) calculator.zoomOutAt(position, Math.abs(multiplier))
+      else calculator.zoomInAt(position, Math.abs(multiplier))
+
+      preview.setValues(calculator.preview)
+
+    })
+  }
+
+  // HANDLER
+  const mouseDownHandler = (event: MouseEvent<HTMLDivElement>): void => {
+    if (event.altKey && event.ctrlKey) zoomCanvas(event)
+    else if (event.altKey) moveCanvas(event)
   }
 
   // HANDLER
