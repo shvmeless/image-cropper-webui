@@ -8,6 +8,9 @@ export class PreviewCalculator {
   private readonly image: Dimensions
   public readonly preview: Dimensions & Position
 
+  // CONTS
+  private readonly MAX_SIZE = 50
+
   // CONSTRUCTOR
   constructor (image: Dimensions, preview: Dimensions & Position) {
     this.image = { ...image }
@@ -35,6 +38,7 @@ export class PreviewCalculator {
     const previous = { ...this.preview }
 
     this.preview.width = this.image.width * multiplier
+    if (this.preview.width < this.MAX_SIZE) this.preview.width = this.MAX_SIZE
     this.preview.height = this.image.height * this.preview.width / this.image.width
     this.preview.x = previous.x - ((previous.width - this.preview.width) / 2)
     this.preview.y = previous.y - ((previous.height - this.preview.height) / 2)
@@ -59,6 +63,7 @@ export class PreviewCalculator {
     const previous = { ...this.preview }
 
     this.preview.width = this.image.width * multiplier
+    if (this.preview.width < this.MAX_SIZE) this.preview.width = this.MAX_SIZE
     this.preview.height = this.image.height * this.preview.width / this.image.width
 
     const pos2 = {

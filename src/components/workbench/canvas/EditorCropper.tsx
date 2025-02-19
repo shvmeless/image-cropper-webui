@@ -74,10 +74,10 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
     if (elements.cropper.current === null) return
     if (elements.preview.current === null) return
 
-    const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+    const utils = new EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
     let diff = utils.relativeToCropper(start)
     diff = utils.proportionalToImage(diff)
-    diff = utils.floor(diff)
+    diff = EditorUtils.floor(diff)
 
     dragging.update((target) => {
 
@@ -86,11 +86,11 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       if (elements.preview.current === null) return
       if (elements.cropper.current === null) return
 
-      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+      const utils = new EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
 
       let position = utils.relativeToPreview(target)
       position = utils.proportionalToImage(position)
-      position = utils.round(position)
+      position = EditorUtils.round(position)
 
       const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
       calculator.setPosition({
@@ -115,11 +115,11 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       if (elements.preview.current === null) return
       if (elements.cropper.current === null) return
 
-      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+      const utils = new EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
 
       let position = utils.relativeToPreview(target)
       position = utils.proportionalToImage(position)
-      position = utils.round(position)
+      position = EditorUtils.round(position)
 
       const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
       calculator.setSide(side, position, tools.aspectRatio)
@@ -141,11 +141,11 @@ export function EditorCropper (props: EditorCropperProps): ReactNode {
       if (elements.preview.current === null) return
       if (elements.cropper.current === null) return
 
-      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+      const utils = new EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
 
       let position = utils.relativeToPreview(target)
       position = utils.proportionalToImage(position)
-      position = utils.round(position)
+      position = EditorUtils.round(position)
 
       const calculator = new CropperCalculator(input.image.dimensions, cropper.values.current)
       calculator.setCorner(corner, position, tools.aspectRatio)

@@ -2,60 +2,68 @@
 import type { Dimensions, MousePosition, Position } from '@lib/common/types'
 
 // MODULE
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type -- ignore
-export function EditorUtils (image: Dimensions, preview: HTMLDivElement, cropper: HTMLDivElement) {
-  image = { ...image }
-  return {
+export class EditorUtils {
 
-    // FUNCTION
-    relativeToPreview (position: MousePosition): Position {
+  // PROPERTIES
+  private readonly image: Dimensions
+  private readonly preview: HTMLDivElement
+  private readonly cropper: HTMLDivElement
 
-      const previewRect = preview.getBoundingClientRect()
+  // CONSTRUCTOR
+  constructor (image: Dimensions, preview: HTMLDivElement, cropper: HTMLDivElement) {
+    this.image = { ...image }
+    this.preview = preview
+    this.cropper = cropper
+  }
 
-      const x = (position.clientX - previewRect.left)
-      const y = (position.clientY - previewRect.top)
+  // METHOD
+  public static floor (position: Position): Position {
+    position.x = Math.floor(position.x)
+    position.y = Math.floor(position.y)
+    return position
+  }
 
-      return { x, y }
+  // METHOD
+  public static round (position: Position): Position {
+    position.x = Math.round(position.x)
+    position.y = Math.round(position.y)
+    return position
+  }
 
-    },
+  // METHOD
+  public relativeToPreview (position: MousePosition): Position {
 
-    // FUNCTION
-    relativeToCropper (position: MousePosition): Position {
+    const previewRect = this.preview.getBoundingClientRect()
 
-      const cropperRect = cropper.getBoundingClientRect()
+    const x = (position.clientX - previewRect.left)
+    const y = (position.clientY - previewRect.top)
 
-      const x = (position.clientX - cropperRect.left)
-      const y = (position.clientY - cropperRect.top)
-
-      return { x, y }
-
-    },
-
-    // FUNCTION
-    proportionalToImage (position: Position): Position {
-
-      const previewRect = preview.getBoundingClientRect()
-
-      const x = position.x * image.width / previewRect.width
-      const y = position.y * image.height / previewRect.height
-
-      return { x, y }
-
-    },
-
-    // FUNCTION
-    floor (position: Position): Position {
-      position.x = Math.floor(position.x)
-      position.y = Math.floor(position.y)
-      return position
-    },
-
-    // FUNCTION
-    round (position: Position): Position {
-      position.x = Math.round(position.x)
-      position.y = Math.round(position.y)
-      return position
-    },
+    return { x, y }
 
   }
+
+  // METHOD
+  public relativeToCropper (position: MousePosition): Position {
+
+    const cropperRect = this.cropper.getBoundingClientRect()
+
+    const x = (position.clientX - cropperRect.left)
+    const y = (position.clientY - cropperRect.top)
+
+    return { x, y }
+
+  }
+
+  // METHOD
+  public proportionalToImage (position: Position): Position {
+
+    const previewRect = this.preview.getBoundingClientRect()
+
+    const x = position.x * this.image.width / previewRect.width
+    const y = position.y * this.image.height / previewRect.height
+
+    return { x, y }
+
+  }
+
 }

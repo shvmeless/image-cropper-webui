@@ -80,7 +80,7 @@ export function EditorCanvas (props: EditorCanvasProps): ReactNode {
       if (elements.cropper.current === null) return
       if (preview.values.current === null) return
 
-      const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+      const utils = new EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
       const position = utils.relativeToPreview(start)
 
       const diff = current.clientX - (previous ?? start).clientX
@@ -112,7 +112,7 @@ export function EditorCanvas (props: EditorCanvasProps): ReactNode {
     if (elements.preview.current === null) return
     if (elements.cropper.current === null) return
 
-    const utils = EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
+    const utils = new EditorUtils(input.image.dimensions, elements.preview.current, elements.cropper.current)
     const position = utils.relativeToPreview(event)
 
     const calculator = new PreviewCalculator(input.image.dimensions, preview.values.current)
