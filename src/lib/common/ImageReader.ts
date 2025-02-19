@@ -90,7 +90,7 @@ export const ImageReader = {
   },
 
   // FUNCTION
-  async cropImage (img: HTMLImageElement, cropper: Dimensions & Position): Promise<HTMLCanvasElement> {
+  cropImage (img: HTMLImageElement, cropper: Dimensions & Position): HTMLCanvasElement {
 
     const canvas = document.createElement('canvas')
 

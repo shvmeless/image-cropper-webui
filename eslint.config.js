@@ -23,6 +23,9 @@ export default typescript.config(
       globals: globals.browser,
     },
     rules: {
+      'no-console': 'off',
+      'promise/avoid-new': 'off',
+
       '@typescript-eslint/array-type': ['error', { default: 'generic', readonly: 'generic' }],
       '@typescript-eslint/prefer-destructuring': 'off',
       '@typescript-eslint/no-empty-function': 'off',

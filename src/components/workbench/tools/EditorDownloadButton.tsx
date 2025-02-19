@@ -31,7 +31,7 @@ export function EditorDownloadButton (props: EditorDownloadButtonProps): ReactNo
       const format = (type === 'image/png' || type === 'image/jpeg' || type === 'image/webp') ? type : 'image/png'
 
       const img = await ImageReader.blobToImage(input.image.blob)
-      const canvas = await ImageReader.cropImage(img, cropper.values.current)
+      const canvas = ImageReader.cropImage(img, cropper.values.current)
       const blob = await ImageReader.canvasToBlob(canvas, format)
 
       const link = document.createElement('a')

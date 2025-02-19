@@ -39,8 +39,5 @@ export function useEditorImageInput (): EditorImageInputHook {
 }
 
 // CONTEXT
-export const EditorImageInputContext = createContext<EditorImageInputHook>({
-  image: null,
-  read: async () => (null),
-  discard: () => {},
-})
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unsafe-type-assertion -- ignore
+export const EditorImageInputContext = createContext<EditorImageInputHook>({} as EditorImageInputHook)
