@@ -50,8 +50,8 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
               {(input.image !== null) && <EditorCloseButton className={css.close}/>}
 
               <div className={css.cropper}>
-                <EditorDimensionsInput className={css.tool}/>
-                <EditorPositionInput className={css.tool}/>
+                <EditorDimensionsInput/>
+                <EditorPositionInput/>
               </div>
 
               <EditorRenderModeButton className={css.render}/>
@@ -66,8 +66,8 @@ export function EditorWorkbench (props: EditorWorkbenchProps): ReactNode {
 
               {(input.image !== null) && <EditorDownloadButton className={css.download}/>}
 
-              {(input.image === null) && <EditorImageInput className={css.input} onChange={inputChangeHandler}/>}
-              {(input.image !== null) && <EditorCanvas className={css.canvas}/>}
+              {(input.image === null) && <EditorImageInput className={css.background} onChange={inputChangeHandler}/>}
+              {(input.image !== null) && <EditorCanvas className={css.background}/>}
 
             </EditorToolsContext.Provider>
           </EditorCropperContext.Provider>

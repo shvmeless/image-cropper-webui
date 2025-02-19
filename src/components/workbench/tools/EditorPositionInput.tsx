@@ -8,13 +8,8 @@ import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContex
 import { NumberInput } from '@ui/NumberInput/NumberInput'
 import css from './EditorPositionInput.module.scss'
 
-// PROPS
-interface EditorPositionInputProps {
-  className?: string
-}
-
 // COMPONENT
-export function EditorPositionInput (props: EditorPositionInputProps): ReactNode {
+export function EditorPositionInput (): ReactNode {
 
   // CONTEXT
   const input = useContext(EditorImageInputContext)
@@ -74,11 +69,9 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
   }
 
   // RENDER
-  return <div
-    className={useClasses(css.EditorPositionInput, props.className, (input.image === null) && css.disabled)}
-  >
+  return <>
 
-    <div className={css.item}>
+    <div className={useClasses(css.box, (input.image === null) && css.disabled)}>
       <div className={css.label}><span>{'X'}</span></div>
       <NumberInput
         className={css.input}
@@ -90,7 +83,7 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
       />
     </div>
 
-    <div className={css.item}>
+    <div className={useClasses(css.box, (input.image === null) && css.disabled)}>
       <div className={css.label}><span>{'Y'}</span></div>
       <NumberInput
         className={css.input}
@@ -102,6 +95,6 @@ export function EditorPositionInput (props: EditorPositionInputProps): ReactNode
       />
     </div>
 
-  </div>
+  </>
 
 }

@@ -1,21 +1,16 @@
 // IMPORTS
 import { useContext, useEffect, useState, type ReactNode } from 'react'
 import { CropperCalculator } from '@lib/editor/CropperCalculator'
-import type { Dimensions } from '@lib/common/types'
 import { useClasses } from '@hooks/common/useClasses'
+import type { Dimensions } from '@lib/common/types'
 import { EditorImageInputContext } from '@contexts/editor/EditorImageInputContext'
 import { EditorCropperContext } from '@contexts/editor/EditorCropperContext'
 import { EditorToolsContext } from '@contexts/editor/EditorToolsContext'
 import { NumberInput } from '@ui/NumberInput/NumberInput'
 import css from './EditorDimensionsInput.module.scss'
 
-// PROPS
-interface EditorDimensionsInputProps {
-  className?: string
-}
-
 // COMPONENT
-export function EditorDimensionsInput (props: EditorDimensionsInputProps): ReactNode {
+export function EditorDimensionsInput (): ReactNode {
 
   // CONTEXT
   const input = useContext(EditorImageInputContext)
@@ -76,11 +71,9 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
   }
 
   // RENDER
-  return <div
-    className={useClasses(css.EditorDimensionsInput, props.className, (input.image === null) && css.disabled)}
-  >
+  return <>
 
-    <div className={css.item}>
+    <div className={useClasses(css.box, (input.image === null) && css.disabled)}>
       <div className={css.label}><span>{'W'}</span></div>
       <NumberInput
         className={css.input}
@@ -92,7 +85,7 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
       />
     </div>
 
-    <div className={css.item}>
+    <div className={useClasses(css.box, (input.image === null) && css.disabled)}>
       <div className={css.label}><span>{'H'}</span></div>
       <NumberInput
         className={css.input}
@@ -104,6 +97,6 @@ export function EditorDimensionsInput (props: EditorDimensionsInputProps): React
       />
     </div>
 
-  </div>
+  </>
 
 }

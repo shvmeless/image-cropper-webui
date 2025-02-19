@@ -1,76 +1,66 @@
 // IMPORTS
 @import '../../../styles/vars';
 
-// COMPONENT
-.EditorDimensionsInput {
+// ELEMENT
+.box {
   display: flex;
   flex-flow: row nowrap;
-  gap: 1rem;
+  flex-grow: 1;
 
-  .item {
-    display: flex;
-    flex-flow: row nowrap;
+  .label {
+    display: grid;
+    place-items: center;
+    height: 3rem;
+    min-height: 3rem;
+    width: 3rem;
+    min-width: 3rem;
+    border-radius: $radius-small 0 0 $radius-small;
+  }
+
+  .input {
+    height: 3rem;
+    text-align: right;
+    padding: 0 1rem;
     flex-grow: 1;
-
-    .label {
-      display: grid;
-      place-items: center;
-      height: 3rem;
-      min-height: 3rem;
-      width: 3rem;
-      min-width: 3rem;
-      border-radius: $radius-small 0 0 $radius-small;
-    }
-
-    .input {
-      height: 3rem;
-      text-align: right;
-      padding: 0 1rem;
-      flex-grow: 1;
-      width: 0;
-      border-radius: 0 $radius-small $radius-small 0;
-    }
+    width: 0;
+    border-radius: 0 $radius-small $radius-small 0;
   }
 }
 
 // STATE
-.EditorDimensionsInput.disabled {
-  .item {
-    .label {
-      background-color: $primary-low;
-      border: solid 1px $border-low;
-      color: $text-low;
-      border-right: none;
-    }
+.box.disabled {
+  .label {
+    background-color: $primary-low;
+    border: solid 1px $border-low;
+    color: $text-low;
+    border-right: none;
+  }
 
-    .input {
-      background-color: $primary-low;
-      border: solid 1px $border-low;
-      color: $text-low;
-    }
+  .input {
+    background-color: $primary-low;
+    border: solid 1px $border-low;
+    color: $text-low;
   }
 }
 
 // STATE
-.EditorDimensionsInput:not(.disabled) {
-  .item {
-    .label {
-      background-color: $primary-normal;
-      border: solid 1px $border-normal;
-      color: $text-normal;
-      border-right: none;
-    }
+.box:not(.disabled) {
+  .label {
+    background-color: $primary-normal;
+    border: solid 1px $border-normal;
+    color: $text-normal;
+    border-right: none;
+  }
 
-    .input {
-      background-color: $primary-normal;
-      border: solid 1px $border-normal;
-      color: $text-normal;
+  .input {
+    background-color: $primary-normal;
+    border: solid 1px $border-normal;
+    color: $text-normal;
 
-      &:focus {
-        background-color: $primary-strong;
-        border: solid 1px $border-strong;
-        color: $text-strong;
-      }
+    &:focus {
+      background-color: $primary-strong;
+      border: solid 1px $border-strong;
+      color: $text-strong;
     }
   }
 }
