@@ -39,12 +39,12 @@
   color: vars.$primary-text-normal;
 
   &:hover {
-    background-color: vars.$tertiary-background-normal;
+    background-color: vars.$tertiary-background-strong;
   }
 
   &:focus-visible {
-    background-color: vars.$tertiary-background-normal;
-    border: solid 2px vars.$tertiary-decoration-normal;
-    color: vars.$primary-text-normal;
+    background-color: vars.$tertiary-background-strong;
+    border: solid 2px vars.$tertiary-decoration-strong;
+    color: vars.$primary-text-strong;
   }
 }

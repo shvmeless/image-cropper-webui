@@ -1,9 +1,14 @@
+// IMPORTS
+@use "../../../styles/vars";
+
 // ELEMENT
 .button {
-  height: 3.5rem;
-  min-height: 3.5rem;
-  max-height: 3.5rem;
-  width: 3.5rem;
-  min-width: 3.5rem;
-  max-width: 3.5rem;
+  height: 3rem;
+  min-height: 3rem;
+  max-height: 3rem;
+  width: 3rem;
+  min-width: 3rem;
+  max-width: 3rem;
+
+  font-size: vars.$font-size-small;
 }
