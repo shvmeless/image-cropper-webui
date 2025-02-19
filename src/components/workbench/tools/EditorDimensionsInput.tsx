@@ -18,23 +18,23 @@ export function EditorDimensionsInput (): ReactNode {
   const tools = useContext(EditorToolsContext)
 
   // STATE
-  const [values, setValues] = useState({
-    width: 0,
-    height: 0,
-  })
+  const [values, setValues] = useState({ width: '', height: '' })
 
   // EFFECT
   useEffect(() => {
 
     if (input.image === null) {
-      setValues({ width: 0, height: 0 })
+      setValues({ width: '', height: '' })
       return
     }
 
     const callback = (values: Dimensions): void => {
       const width = Math.round(values.width)
       const height = Math.round(values.height)
-      setValues({ width, height })
+      setValues({
+        width: width.toString(),
+        height: height.toString(),
+      })
     }
 
     cropper.subscriber.subscribe(callback)
@@ -45,7 +45,7 @@ export function EditorDimensionsInput (): ReactNode {
   }, [input.image])
 
   // FUNCTION
-  const updateValues = (values: Partial<Dimensions>): void => {
+  const updateValues = (values: Partial<{ width: string, height: string }>): void => {
     setValues((prev) => ({ ...prev, ...values }))
   }
 
@@ -56,7 +56,10 @@ export function EditorDimensionsInput (): ReactNode {
     if (cropper.values.current === null) return
 
     if (isNaN(value)) {
-      updateValues(cropper.values.current)
+      updateValues({
+        width: cropper.values.current.width.toString(),
+        height: cropper.values.current.height.toString(),
+      })
       return
     }
 

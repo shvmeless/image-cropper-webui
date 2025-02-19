@@ -16,23 +16,23 @@ export function EditorPositionInput (): ReactNode {
   const cropper = useContext(EditorCropperContext)
 
   // STATE
-  const [values, setValues] = useState({
-    x: 0,
-    y: 0,
-  })
+  const [values, setValues] = useState({ x: '', y: '' })
 
   // EFFECT
   useEffect(() => {
 
     if (input.image === null) {
-      setValues({ x: 0, y: 0 })
+      setValues({ x: '', y: '' })
       return
     }
 
     const callback = (values: Position): void => {
       const x = Math.round(values.x)
       const y = Math.round(values.y)
-      setValues({ x, y })
+      setValues({
+        x: x.toString(),
+        y: y.toString(),
+      })
     }
 
     cropper.subscriber.subscribe(callback)
@@ -43,7 +43,7 @@ export function EditorPositionInput (): ReactNode {
   }, [input.image])
 
   // FUNCTION
-  const updateValues = (values: Partial<Position>): void => {
+  const updateValues = (values: Partial<{ x: string, y: string }>): void => {
     setValues((prev) => ({ ...prev, ...values }))
   }
 
@@ -54,7 +54,10 @@ export function EditorPositionInput (): ReactNode {
     if (cropper.values.current === null) return
 
     if (isNaN(value)) {
-      updateValues(cropper.values.current)
+      updateValues({
+        x: cropper.values.current.x.toString(),
+        y: cropper.values.current.y.toString(),
+      })
       return
     }
 
